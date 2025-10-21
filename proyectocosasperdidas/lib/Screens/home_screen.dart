@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:proyectocosasperdidas/Screens/loser_screen.dart';
+import 'package:proyectocosasperdidas/screens/mediator_screen.dart';
+import 'administrator_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -12,36 +15,114 @@ class HomeScreen extends StatelessWidget {
         title: const Text("Proyecto Cosas Perdidas"),
         centerTitle: true, // Centra el título
       ),
-      //Center simplemente centra su hijo en el plano horizontal y vertical
-      body: Center(
-        //Column organiza sus hijos en una columna vertical
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment
-              .center, // Centra los hijos de la columna tanto horizontal como verticalmente
-          children: <Widget>[
-            // Boton
-            ElevatedButton(
-              // Acción al presionar el botón
-              onPressed: () {},
-              // Estilo personalizado para el botón
-              style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.white,
-                backgroundColor: Colors.blue,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
+      //body simplemente contiene un Center
+      body:
+          //Center simplemente aloja y centra un Column
+          Center(
+            //Column organiza sus hijos en una columna vertical
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment
+                  .center, // Centra los hijos de la columna tanto horizontal como verticalmente
+              children: [
+                //Row organiza sus hijos en una fila horizontal
+                Row(
+                  mainAxisAlignment: MainAxisAlignment
+                      .center, // Centra los hijos de la columna tanto horizontal como verticalmente
+                  children: [
+                    // Boton
+                    ElevatedButton(
+                      // Acción al presionar el botón
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const AdministratorScreen(),
+                          ),
+                        );
+                      },
+                      // Estilo personalizado para el botón
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.white,
+                        backgroundColor: Colors.blue,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        // Añade padding (espacio) alrededor del texto del botón
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 20,
+                          vertical: 15,
+                        ),
+                      ),
+                      // Texto del botón
+                      child: const Text("Administrador"),
+                    ),
+
+                    //espacio entre botones
+                    const SizedBox(width: 15),
+
+                    // Boton
+                    ElevatedButton(
+                      // Acción al presionar el botón
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const MediatorScreen(),
+                          ),
+                        );
+                      },
+                      // Estilo personalizado para el botón
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.white,
+                        backgroundColor: Colors.blue,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        // Añade padding (espacio) alrededor del texto del botón
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 20,
+                          vertical: 15,
+                        ),
+                      ),
+                      // Texto del botón
+                      child: const Text("Mediador"),
+                    ),
+
+                    //Espacio entre botones
+                    const SizedBox(width: 15),
+
+                    // Boton
+                    ElevatedButton(
+                      // Acción al presionar el botón
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const LoserScreen(),
+                          ),
+                        );
+                      },
+                      // Estilo personalizado para el botón
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.white,
+                        backgroundColor: Colors.blue,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        // Añade padding (espacio) alrededor del texto del botón
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 20,
+                          vertical: 15,
+                        ),
+                      ),
+                      // Texto del botón
+                      child: const Text("Perdedor"),
+                    ),
+                  ],
                 ),
-                // Añade padding (espacio) alrededor del texto del botón
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                  vertical: 15,
-                ),
-              ),
-              // Texto del botón
-              child: const Text("Administrador"),
+              ],
             ),
-          ],
-        ),
-      ),
+          ),
     );
   }
 }
