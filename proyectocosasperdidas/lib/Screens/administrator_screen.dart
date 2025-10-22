@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:proyectocosasperdidas/Components/categorias.dart';
 
 class AdministratorScreen extends StatefulWidget {
   // Constructor de la clase AdministratorScreen
@@ -19,7 +20,12 @@ class _AdministratorScreen extends State<AdministratorScreen> {
       // AppBar que contiene un título centrado
       appBar: AppBar(title: const Text("Administrador"), centerTitle: true),
       // Body que contiene un Center con un texto
-      body: const Center(child: Text("Pantalla de Administrador")),
+      body: const Center(child: Column(
+        children: [
+          Text("Pantalla de Administrador"),
+          MenuCategoria(),
+        ],
+      )),
     );
   }
 }

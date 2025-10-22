@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:proyectocosasperdidas/Components/categorias.dart';
 
 class LoserScreen extends StatefulWidget {
   // Constructor de la clase LoserScreen
@@ -18,7 +19,12 @@ class _LoserScreen extends State<LoserScreen> {
       // AppBar que contiene un título centrado
       appBar: AppBar(title: const Text("Perdedor"), centerTitle: true),
       // Body que contiene un Center con un texto
-      body: const Center(child: Text("Pantalla de Perdedor")),
+      body: const Center(child: Column(
+        children: [
+          Text("Pantalla de Perdedor"),
+          MenuCategoria(),
+        ],
+      )),
     );
   }
 }
