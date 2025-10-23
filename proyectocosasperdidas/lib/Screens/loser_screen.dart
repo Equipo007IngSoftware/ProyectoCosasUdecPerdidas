@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:proyectocosasperdidas/Components/categorias.dart';
+import 'package:proyectocosasperdidas/Components/estado.dart';
+import 'package:proyectocosasperdidas/Screens/form.dart';
 
 class LoserScreen extends StatefulWidget {
   // Constructor de la clase LoserScreen
@@ -19,10 +20,33 @@ class _LoserScreen extends State<LoserScreen> {
       // AppBar que contiene un título centrado
       appBar: AppBar(title: const Text("Perdedor"), centerTitle: true),
       // Body que contiene un Center con un texto
-      body: const Center(child: Column(
+      body: Center(child: Column(
         children: [
-          Text("Pantalla de Perdedor"),
-          MenuCategoria(),
+          const Text("Pantalla de Perdedor"),
+          //Boton que lleva a Formulario
+          ElevatedButton(
+            onPressed: () {
+                Navigator.push(
+                  context,
+                  //se abre un formulario en modo de objeto encontrado
+                  MaterialPageRoute(
+                    builder: (context) => Formulario(tipo: Estado.perdido,),
+                  ),
+                );
+              },
+            style: ElevatedButton.styleFrom(
+                foregroundColor: Colors.white,
+                backgroundColor: Colors.blue,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 15,
+                ),
+              ),
+            child: const Text("Crear Reporte"),
+          )
         ],
       )),
     );
