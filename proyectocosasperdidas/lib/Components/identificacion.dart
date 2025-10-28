@@ -1,5 +1,7 @@
 class Identificacion {
-  final String descripcion;
+  String id_o_nombre;
+  String? numero;
+  String? correo;
 
-  Identificacion(this.descripcion);
+  Identificacion({required this.id_o_nombre, this.numero, this.correo});
 }
