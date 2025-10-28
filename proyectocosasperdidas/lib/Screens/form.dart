@@ -31,16 +31,19 @@ class Formulario extends StatelessWidget {
       ],
       home: Scaffold(
         appBar: AppBar(title: const Text("Formulario"), centerTitle: true),
-        body: Center(
-          child: Container(
-            margin: const EdgeInsets.fromLTRB(16, 0, 16, 0),
-            child: Column(
-              children: [
-                (tipo == Estado.perdido) ? FormPerdedor() : FormAdmin(),
-                //const MenuCategoria(),
-                const MenuImagen(),
-                Text((tipo == Estado.perdido) ? "modo perdedor" : "soy admin"),
-              ],
+        body: Scrollbar(
+          child: SingleChildScrollView(
+            child: Container(
+              margin: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+              child: Column(
+                children: [
+                  (tipo == Estado.perdido) ? FormPerdedor() : FormAdmin(),
+                  //const MenuCategoria(),
+                  Text(
+                    (tipo == Estado.perdido) ? "modo perdedor" : "soy admin",
+                  ),
+                ],
+              ),
             ),
           ),
         ),
