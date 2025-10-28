@@ -37,6 +37,8 @@ dependencies:
   intl: ^0.20.2
   flutter_localizations:
     sdk: flutter  
+  file_picker: ^10.3.3
+
 
 dev_dependencies:
   flutter_test:

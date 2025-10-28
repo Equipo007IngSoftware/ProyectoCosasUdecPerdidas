@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:proyectocosasperdidas/Components/Imagen.dart';
 import 'package:proyectocosasperdidas/Components/estado.dart';
 import 'package:proyectocosasperdidas/Components/reporte.dart';
 import 'package:proyectocosasperdidas/Components/categorias.dart';
@@ -37,6 +38,7 @@ class Formulario extends StatelessWidget {
               children: [
                 (tipo == Estado.perdido) ? FormPerdedor() : FormAdmin(),
                 //const MenuCategoria(),
+                const MenuImagen(),
                 Text((tipo == Estado.perdido) ? "modo perdedor" : "soy admin"),
               ],
             ),
