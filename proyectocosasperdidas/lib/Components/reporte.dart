@@ -20,7 +20,6 @@ class Reporte {
   Ubicacion ubicacion;
   Identificacion ident;
   String? imagenUrl;
-  late TarjetaDeReporte tarjeta;
 
   ///Contructor de Reporte
   ///
@@ -39,13 +38,5 @@ class Reporte {
     this.imagenUrl,
   }) {
     fecha ??= DateTime.now();
-    tarjeta = TarjetaDeReporte(
-      imagenUrl:
-          imagenUrl ??
-          'https://via.placeholder.com/150', // Imagen por defecto si no hqy ninguna
-      tipo: tipo,
-      lugar: ubicacion,
-      fecha: fecha ?? DateTime.now(),
-    );
   }
 }

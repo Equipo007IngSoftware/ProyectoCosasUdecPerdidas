@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:proyectocosasperdidas/Components/categorias.dart';
 import 'package:proyectocosasperdidas/Components/ubicacion.dart';
+import 'reporte.dart';
 
 class TarjetaDeReporte extends StatelessWidget {
   //Datos relevantes del reporte
@@ -17,6 +18,14 @@ class TarjetaDeReporte extends StatelessWidget {
     required this.lugar,
     required this.fecha,
   });
+
+  factory TarjetaDeReporte.fromReporte(Reporte r){
+    return TarjetaDeReporte(
+      imagenUrl: r.imagenUrl ?? 'https://via.placeholder.com/150',
+      tipo: r.tipo,
+      lugar: r.ubicacion,
+      fecha: r.fecha ?? DateTime.now());
+  }
 
   // Metodo build para construir la UI de la tarjeta
   @override
