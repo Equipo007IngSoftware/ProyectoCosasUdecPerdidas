@@ -6,6 +6,7 @@ import 'package:proyectocosasperdidas/Components/ubicacion.dart';
 import 'package:proyectocosasperdidas/Components/reporte.dart';
 import 'package:proyectocosasperdidas/Components/estado.dart';
 import 'package:proyectocosasperdidas/Components/Imagen.dart';
+import 'package:proyectocosasperdidas/database.dart';
 /*void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
@@ -249,18 +250,36 @@ class FormPerdedorState extends State<FormPerdedor> {
                     ubicacion: place,
                     ident: id,
                   );
-                  chosen = true;
+                  setState(() {
+                    chosen = true;
+                  });
+                  DataBase().registrarReportePerdido(reporte);
+                  Navigator.pop(context);
                   ScaffoldMessenger.of(
                     context,
-                  ).showSnackBar(const SnackBar(content: Text('Procesando')));
+                  ).showSnackBar(const SnackBar(content: Text('Enviado')));
                 } catch (e) {
                   setState(() {
                     chosen = false;
                   });
                 }
+                id = Identificacion(
+                  id_o_nombre: nombre,
+                  numero: numero,
+                  correo: correo,
+                );
+                reporte = Reporte(
+                  titulo: objeto,
+                  fecha: fecha,
+                  descripcion: descr,
+                  tipo: category,
+                  estado: estado,
+                  ubicacion: place,
+                  ident: id,
+                );
               }
             },
-            child: const Text('Mandar'),
+            child: const Text('Enviar'),
           ),
         ],
       ),

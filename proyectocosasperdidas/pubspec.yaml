@@ -38,6 +38,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter  
   file_picker: ^10.3.3
+  pair: ^0.1.2
 
 
 dev_dependencies:

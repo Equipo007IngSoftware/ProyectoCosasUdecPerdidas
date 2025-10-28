@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:proyectocosasperdidas/Components/Imagen.dart';
 import 'package:proyectocosasperdidas/Components/estado.dart';
-import 'package:proyectocosasperdidas/Components/reporte.dart';
-import 'package:proyectocosasperdidas/Components/categorias.dart';
 import 'package:proyectocosasperdidas/Components/formAdmin.dart';
 import 'package:proyectocosasperdidas/Components/formPerdedor.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 
 ///Pantalla de Formulario
 ///
@@ -18,18 +14,7 @@ class Formulario extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Formulario para reportar perdida de objeto',
-      localizationsDelegates: const [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: const [
-        Locale('es', 'ES'), // Spanish
-        Locale('en', 'US'), // English (optional fallback)
-      ],
-      home: Scaffold(
+    return Scaffold(
         appBar: AppBar(title: const Text("Formulario"), centerTitle: true),
         body: Scrollbar(
           child: SingleChildScrollView(
@@ -47,7 +32,6 @@ class Formulario extends StatelessWidget {
             ),
           ),
         ),
-      ),
-    );
+      );
   }
 }
