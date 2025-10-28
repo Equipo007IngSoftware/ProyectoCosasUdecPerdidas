@@ -44,6 +44,7 @@ class FormAdminState extends State<FormAdmin> {
   late String descr;
   late String objeto;
   late categorias category;
+  bool chosen = true;
   TextEditingController _fechaController = TextEditingController();
 
   @override
@@ -127,6 +128,7 @@ class FormAdminState extends State<FormAdmin> {
             decoration: const InputDecoration(
               labelText: 'Fecha cuando perdió el objeto *',
               hintText: 'dd/mm/aaaa',
+              contentPadding: EdgeInsets.fromLTRB(16, 0, 16, 0),
             ),
             validator: (value) {
               if (value == null || value.isEmpty) {
@@ -173,24 +175,43 @@ class FormAdminState extends State<FormAdmin> {
               return null;
             },
           ),
-          MenuCategoria(press: (value) => category=value),
+          MenuCategoria(press: (value) => category = value),
+          Visibility(
+            visible: (chosen == false),
+            child: const Padding(
+              padding: EdgeInsets.only(top: 2.0),
+              child: Text(
+                'No ha seleccionado categoría',
+                style: TextStyle(color: Colors.red),
+              ),
+            ),
+          ),
           const MenuImagen(),
           ElevatedButton(
             onPressed: () {
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
-                reporte = Reporte(
-                  titulo: objeto,
-                  fecha: fecha,
-                  descripcion: descr,
-                  tipo: category,
-                  estado: estado,
-                  ubicacion: place,
-                  ident: id,
-                );
-                ScaffoldMessenger.of(
-                  context,
-                ).showSnackBar(const SnackBar(content: Text('Procesando')));
+                try {
+                  reporte = Reporte(
+                    titulo: objeto,
+                    fecha: fecha,
+                    descripcion: descr,
+                    tipo: category,
+                    estado: estado,
+                    ubicacion: place,
+                    ident: id,
+                  );
+                  setState(() {
+                    chosen = true;
+                  });
+                  ScaffoldMessenger.of(
+                    context,
+                  ).showSnackBar(const SnackBar(content: Text('Procesando')));
+                } catch (e) {
+                  setState(() {
+                    chosen = false;
+                  });
+                }
               }
             },
             child: const Text('Mandar'),

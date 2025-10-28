@@ -34,7 +34,7 @@ class Formulario extends StatelessWidget {
         body: Scrollbar(
           child: SingleChildScrollView(
             child: Container(
-              margin: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+              margin: const EdgeInsets.fromLTRB(16, 30, 16, 0),
               child: Column(
                 children: [
                   (tipo == Estado.perdido) ? FormPerdedor() : FormAdmin(),
