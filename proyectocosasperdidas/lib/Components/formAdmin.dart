@@ -6,6 +6,7 @@ import 'package:proyectocosasperdidas/Components/ubicacion.dart';
 import 'package:proyectocosasperdidas/Components/reporte.dart';
 import 'package:proyectocosasperdidas/Components/estado.dart';
 import 'package:proyectocosasperdidas/Components/Imagen.dart';
+import 'package:proyectocosasperdidas/database.dart';
 
 /*void main() => runApp(const MyApp());
 
@@ -188,12 +189,14 @@ class FormAdminState extends State<FormAdmin> {
                   ubicacion: place,
                   ident: id,
                 );
+                DataBase().registrarReporteEncontrado(reporte);
+                Navigator.pop(context);
                 ScaffoldMessenger.of(
                   context,
-                ).showSnackBar(const SnackBar(content: Text('Procesando')));
+                ).showSnackBar(const SnackBar(content: Text('Enviado')));
               }
             },
-            child: const Text('Mandar'),
+            child: const Text('Enviar'),
           ),
         ],
       ),
