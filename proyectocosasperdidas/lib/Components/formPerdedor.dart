@@ -43,8 +43,7 @@ class FormPerdedorState extends State<FormPerdedor> {
   Estado estado = Estado.perdido;
   late String descr;
   late String objeto;
-  categorias category =
-      categorias.electronico; //temporal para que no se caiga lol
+  late categorias category;
   TextEditingController _fechaController = TextEditingController();
 
   @override
@@ -216,7 +215,7 @@ class FormPerdedorState extends State<FormPerdedor> {
               return null;
             },
           ),
-          const MenuCategoria(),
+          MenuCategoria(press: (value) => category=value),
           ElevatedButton(
             onPressed: () {
               if (_formKey.currentState!.validate()) {

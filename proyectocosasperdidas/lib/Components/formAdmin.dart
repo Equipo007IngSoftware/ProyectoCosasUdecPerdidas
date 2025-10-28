@@ -42,8 +42,7 @@ class FormAdminState extends State<FormAdmin> {
   Estado estado = Estado.perdido;
   late String descr;
   late String objeto;
-  categorias category =
-      categorias.electronico; //temporal para que no se caiga lol
+  late categorias category;
   TextEditingController _fechaController = TextEditingController();
 
   @override
@@ -173,7 +172,7 @@ class FormAdminState extends State<FormAdmin> {
               return null;
             },
           ),
-          const MenuCategoria(),
+          MenuCategoria(press: (value) => category=value),
           ElevatedButton(
             onPressed: () {
               if (_formKey.currentState!.validate()) {

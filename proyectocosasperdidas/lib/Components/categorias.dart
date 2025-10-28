@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:developer' as dev;
 enum categorias{
   electronico("Objeto Electrónico", Color.fromRGBO(66, 62, 1, 1)),
   ropa("Prenda de ropa", Color.fromRGBO(133, 29, 11, 1)),
@@ -11,15 +10,10 @@ enum categorias{
   const categorias(this.label, this.fcolor);
 }
 
-class MenuCategoria extends StatefulWidget {
-  const MenuCategoria({super.key});
+class MenuCategoria extends StatelessWidget {
+  const MenuCategoria({super.key, required this.press});
+  final ValueChanged<categorias> press;
 
-  @override
-  State<MenuCategoria> createState() => _MenuCategoriaState();
-}
-
-class _MenuCategoriaState extends State<MenuCategoria> {
-  categorias? _selected_category;
   @override
   Widget build(BuildContext context) {
     return DropdownMenu<categorias>(
@@ -36,8 +30,7 @@ class _MenuCategoriaState extends State<MenuCategoria> {
         },
       ).toList(),
       onSelected: (value) {
-        _selected_category=value;
-        dev.log(_selected_category!.label);
+        press(value!);
       },
     );
   }
