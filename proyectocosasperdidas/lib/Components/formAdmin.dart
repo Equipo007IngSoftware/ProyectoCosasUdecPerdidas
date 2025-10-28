@@ -5,6 +5,7 @@ import 'package:proyectocosasperdidas/Components/identificacion.dart';
 import 'package:proyectocosasperdidas/Components/ubicacion.dart';
 import 'package:proyectocosasperdidas/Components/reporte.dart';
 import 'package:proyectocosasperdidas/Components/estado.dart';
+import 'package:proyectocosasperdidas/Components/Imagen.dart';
 
 /*void main() => runApp(const MyApp());
 
@@ -174,6 +175,7 @@ class FormAdminState extends State<FormAdmin> {
             },
           ),
           const MenuCategoria(),
+          const MenuImagen(),
           ElevatedButton(
             onPressed: () {
               if (_formKey.currentState!.validate()) {

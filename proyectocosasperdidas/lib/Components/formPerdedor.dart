@@ -5,6 +5,7 @@ import 'package:proyectocosasperdidas/Components/identificacion.dart';
 import 'package:proyectocosasperdidas/Components/ubicacion.dart';
 import 'package:proyectocosasperdidas/Components/reporte.dart';
 import 'package:proyectocosasperdidas/Components/estado.dart';
+import 'package:proyectocosasperdidas/Components/Imagen.dart';
 /*void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
@@ -117,8 +118,8 @@ class FormPerdedorState extends State<FormPerdedor> {
               if (value == null || value.isEmpty) {
                 return 'Este campo es obligatorio.';
               }
-              if (!value.contains('@')) {
-                return 'No hay @ en tu correo';
+              if (!RegExp(r'^[a-z]+\@[a-z]+\.[a-z]+$').hasMatch(value)) {
+                return 'No tiene formato de correo';
               }
               return null;
             },
@@ -170,6 +171,7 @@ class FormPerdedorState extends State<FormPerdedor> {
             decoration: const InputDecoration(
               labelText: 'Fecha cuando perdió el objeto *',
               hintText: 'dd/mm/aaaa',
+              contentPadding: EdgeInsets.fromLTRB(16, 0, 16, 0),
             ),
             validator: (value) {
               if (value == null || value.isEmpty) {
@@ -217,6 +219,7 @@ class FormPerdedorState extends State<FormPerdedor> {
             },
           ),
           const MenuCategoria(),
+          const MenuImagen(),
           ElevatedButton(
             onPressed: () {
               if (_formKey.currentState!.validate()) {
