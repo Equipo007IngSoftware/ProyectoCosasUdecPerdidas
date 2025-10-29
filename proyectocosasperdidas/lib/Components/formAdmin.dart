@@ -1,3 +1,4 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:proyectocosasperdidas/Components/categorias.dart';
 import 'package:intl/intl.dart';
@@ -44,6 +45,7 @@ class FormAdminState extends State<FormAdmin> {
   late String descr;
   late String objeto;
   late categorias category;
+  PlatformFile? img;
   TextEditingController _fechaController = TextEditingController();
 
   @override
@@ -174,7 +176,7 @@ class FormAdminState extends State<FormAdmin> {
             },
           ),
           MenuCategoria(press: (value) => category=value),
-          const MenuImagen(),
+          MenuImagen(img: (value) => img=value),
           ElevatedButton(
             onPressed: () {
               if (_formKey.currentState!.validate()) {
@@ -187,6 +189,7 @@ class FormAdminState extends State<FormAdmin> {
                   estado: estado,
                   ubicacion: place,
                   ident: id,
+                  imagen: img,
                 );
                 ScaffoldMessenger.of(
                   context,

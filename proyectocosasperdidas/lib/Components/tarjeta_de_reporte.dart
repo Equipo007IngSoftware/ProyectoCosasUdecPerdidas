@@ -1,3 +1,4 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:proyectocosasperdidas/Components/categorias.dart';
 import 'package:proyectocosasperdidas/Components/ubicacion.dart';
@@ -5,7 +6,7 @@ import 'reporte.dart';
 
 class TarjetaDeReporte extends StatelessWidget {
   //Datos relevantes del reporte
-  final String imagenUrl;
+  final PlatformFile? imagen;
   final categorias tipo;
   final Ubicacion lugar;
   final DateTime fecha;
@@ -13,7 +14,7 @@ class TarjetaDeReporte extends StatelessWidget {
   //Constructor
   const TarjetaDeReporte({
     super.key,
-    required this.imagenUrl,
+    required this.imagen,
     required this.tipo,
     required this.lugar,
     required this.fecha,
@@ -21,7 +22,7 @@ class TarjetaDeReporte extends StatelessWidget {
 
   factory TarjetaDeReporte.fromReporte(Reporte r){
     return TarjetaDeReporte(
-      imagenUrl: r.imagenUrl ?? 'https://via.placeholder.com/150',
+      imagen: r.imagen,
       tipo: r.tipo,
       lugar: r.ubicacion,
       fecha: r.fecha ?? DateTime.now());
@@ -51,12 +52,11 @@ class TarjetaDeReporte extends StatelessWidget {
                 ),
                 child:
                     // Image.network carga una imagen desde una URL con un ancho y alto especifico
-                    Image.network(
-                      imagenUrl,
-                      width: double.infinity,
-                      height: 180,
-                      fit: BoxFit
-                          .cover, // Ajusta la imagen para cubrir todo el espacio disponible
+                    Image.memory(
+                      imagen!.bytes!,
+                      width: 200,
+                      height: 200,
+                      fit: BoxFit.cover,
                     ),
               ),
               // Padding agrega espacio alrededor de Column

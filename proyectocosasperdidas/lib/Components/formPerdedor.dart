@@ -1,3 +1,4 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:proyectocosasperdidas/Components/categorias.dart';
 import 'package:intl/intl.dart';
@@ -45,6 +46,7 @@ class FormPerdedorState extends State<FormPerdedor> {
   late String descr;
   late String objeto;
   late categorias category;
+  PlatformFile? img;
   TextEditingController _fechaController = TextEditingController();
 
   @override
@@ -217,7 +219,7 @@ class FormPerdedorState extends State<FormPerdedor> {
               return null;
             },
           ),
-          const MenuImagen(),
+          MenuImagen(img: (value) => img=value),
           MenuCategoria(press: (value) => category=value),
           ElevatedButton(
             onPressed: () {
@@ -236,6 +238,7 @@ class FormPerdedorState extends State<FormPerdedor> {
                   estado: estado,
                   ubicacion: place,
                   ident: id,
+                  imagen: img,
                 );
                 ScaffoldMessenger.of(
                   context,

@@ -1,3 +1,4 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:proyectocosasperdidas/Components/tarjeta_de_reporte.dart';
 import 'estado.dart';
 import 'identificacion.dart';
@@ -19,7 +20,7 @@ class Reporte {
   Estado estado;
   Ubicacion ubicacion;
   Identificacion ident;
-  String? imagenUrl;
+  PlatformFile? imagen;
 
   ///Contructor de Reporte
   ///
@@ -35,7 +36,7 @@ class Reporte {
     required this.estado,
     required this.ubicacion,
     required this.ident,
-    this.imagenUrl,
+    required this.imagen,
   }) {
     fecha ??= DateTime.now();
   }
