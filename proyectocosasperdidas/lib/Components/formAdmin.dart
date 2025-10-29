@@ -7,6 +7,7 @@ import 'package:proyectocosasperdidas/Components/ubicacion.dart';
 import 'package:proyectocosasperdidas/Components/reporte.dart';
 import 'package:proyectocosasperdidas/Components/estado.dart';
 import 'package:proyectocosasperdidas/Components/Imagen.dart';
+import 'package:proyectocosasperdidas/database.dart';
 
 /*void main() => runApp(const MyApp());
 
@@ -46,6 +47,8 @@ class FormAdminState extends State<FormAdmin> {
   late String objeto;
   late categorias category;
   PlatformFile? img;
+  bool chosen = true;
+  bool chosenimage = true;
   TextEditingController _fechaController = TextEditingController();
 
   @override
@@ -121,14 +124,14 @@ class FormAdminState extends State<FormAdmin> {
               }
               return null;
             },
-          ),
-
+          ), 
           TextFormField(
             controller: _fechaController,
             readOnly: true,
             decoration: const InputDecoration(
               labelText: 'Fecha cuando perdió el objeto *',
               hintText: 'dd/mm/aaaa',
+              contentPadding: EdgeInsets.fromLTRB(16, 0, 16, 0),
             ),
             validator: (value) {
               if (value == null || value.isEmpty) {
@@ -175,12 +178,64 @@ class FormAdminState extends State<FormAdmin> {
               return null;
             },
           ),
-          MenuCategoria(press: (value) => category=value),
           MenuImagen(img: (value) => img=value),
+          Visibility(
+            visible: (img == null && chosenimage==false),
+            child: const Padding(
+              padding: EdgeInsets.only(top: 2.0),
+              child: Text(
+                'No ha seleccionado imagen',
+                style: TextStyle(color: Colors.red),
+              ),
+            ),
+          ),
+          MenuCategoria(press: (value) => category = value),
+          Visibility(
+            visible: (chosen == false),
+            child: const Padding(
+              padding: EdgeInsets.only(top: 2.0),
+              child: Text(
+                'No ha seleccionado categoría',
+                style: TextStyle(color: Colors.red),
+              ),
+            ),
+          ),
           ElevatedButton(
             onPressed: () {
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
+                //si es que no tiene imagen entonces no permite enviar el reporte
+                if (img == null) {
+                setState(() {
+                  chosenimage = false;
+                });
+                return;
+                }
+                
+                try {
+                  reporte = Reporte(
+                    titulo: objeto,
+                    fecha: fecha,
+                    descripcion: descr,
+                    tipo: category,
+                    estado: estado,
+                    ubicacion: place,
+                    ident: id,
+                    imagen: img,
+                  );
+                  setState(() {
+                    chosen = true;
+                  });
+                  DataBase().registrarReporteEncontrado(reporte);
+                  Navigator.pop(context);
+                  ScaffoldMessenger.of(
+                    context,
+                  ).showSnackBar(const SnackBar(content: Text('Enviado')));
+                } catch (e) {
+                  setState(() {
+                    chosen = false;
+                  });
+                }
                 reporte = Reporte(
                   titulo: objeto,
                   fecha: fecha,
@@ -191,12 +246,9 @@ class FormAdminState extends State<FormAdmin> {
                   ident: id,
                   imagen: img,
                 );
-                ScaffoldMessenger.of(
-                  context,
-                ).showSnackBar(const SnackBar(content: Text('Procesando')));
               }
             },
-            child: const Text('Mandar'),
+            child: const Text('Enviar'),
           ),
         ],
       ),

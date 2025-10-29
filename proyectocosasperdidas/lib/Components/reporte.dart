@@ -36,7 +36,7 @@ class Reporte {
     required this.estado,
     required this.ubicacion,
     required this.ident,
-    required this.imagen,
+    this.imagen,
   }) {
     fecha ??= DateTime.now();
   }

@@ -7,6 +7,7 @@ import 'package:proyectocosasperdidas/Components/ubicacion.dart';
 import 'package:proyectocosasperdidas/Components/reporte.dart';
 import 'package:proyectocosasperdidas/Components/estado.dart';
 import 'package:proyectocosasperdidas/Components/Imagen.dart';
+import 'package:proyectocosasperdidas/database.dart';
 /*void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
@@ -47,6 +48,7 @@ class FormPerdedorState extends State<FormPerdedor> {
   late String objeto;
   late categorias category;
   PlatformFile? img;
+  bool chosen = true;
   TextEditingController _fechaController = TextEditingController();
 
   @override
@@ -220,11 +222,49 @@ class FormPerdedorState extends State<FormPerdedor> {
             },
           ),
           MenuImagen(img: (value) => img=value),
-          MenuCategoria(press: (value) => category=value),
+          MenuCategoria(press: (value) => category = value),
+          Visibility(
+            visible: (chosen == false),
+            child: const Padding(
+              padding: EdgeInsets.only(top: 2.0),
+              child: Text(
+                'No ha seleccionado categoría',
+                style: TextStyle(color: Colors.red),
+              ),
+            ),
+          ),
           ElevatedButton(
             onPressed: () {
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
+                try {
+                  id = Identificacion(
+                    id_o_nombre: nombre,
+                    numero: numero,
+                    correo: correo,
+                  );
+                  reporte = Reporte(
+                    titulo: objeto,
+                    fecha: fecha,
+                    descripcion: descr,
+                    tipo: category,
+                    estado: estado,
+                    ubicacion: place,
+                    ident: id,
+                  );
+                  setState(() {
+                    chosen = true;
+                  });
+                  DataBase().registrarReportePerdido(reporte);
+                  Navigator.pop(context);
+                  ScaffoldMessenger.of(
+                    context,
+                  ).showSnackBar(const SnackBar(content: Text('Enviado')));
+                } catch (e) {
+                  setState(() {
+                    chosen = false;
+                  });
+                }
                 id = Identificacion(
                   id_o_nombre: nombre,
                   numero: numero,
@@ -240,12 +280,9 @@ class FormPerdedorState extends State<FormPerdedor> {
                   ident: id,
                   imagen: img,
                 );
-                ScaffoldMessenger.of(
-                  context,
-                ).showSnackBar(const SnackBar(content: Text('Procesando')));
               }
             },
-            child: const Text('Mandar'),
+            child: const Text('Enviar'),
           ),
         ],
       ),
