@@ -251,6 +251,7 @@ class FormPerdedorState extends State<FormPerdedor> {
                     estado: estado,
                     ubicacion: place,
                     ident: id,
+                    imagen: img,
                   );
                   setState(() {
                     chosen = true;

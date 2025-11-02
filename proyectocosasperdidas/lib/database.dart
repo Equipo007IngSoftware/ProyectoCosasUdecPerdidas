@@ -22,9 +22,22 @@ class DataBase {
 
   factory DataBase() => _instance ??= DataBase._();
 
-  static List<Reporte> reportesPerdido = [];
-  static List<Reporte> reportesEncontrado = [];
-  static List<Solucion> reportesSolucionado = [];
+  final List<Reporte> reportesPerdido = [];
+  final List<Reporte> reportesEncontrado = [];
+  final List<Solucion> reportesSolucionado = [];
+
+  Reporte getReporteEncontrado(int i){
+    return reportesEncontrado[i];
+  }
+  int encontradosSize(){
+    return reportesEncontrado.length;
+  }
+   Reporte getReportePerdido(int i){
+    return reportesPerdido[i];
+  }
+  int perdidosSize(){
+    return reportesPerdido.length;
+  }
 
   ///Registra un objeto perdido<br />
   //////```DataBase().registrarReportePerdido(r1);```

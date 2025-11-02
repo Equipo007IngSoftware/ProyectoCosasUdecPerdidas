@@ -10,6 +10,7 @@ class TarjetaDeReporte extends StatelessWidget {
   final categorias tipo;
   final Ubicacion lugar;
   final DateTime fecha;
+  final String title;
 
   //Constructor
   const TarjetaDeReporte({
@@ -18,6 +19,7 @@ class TarjetaDeReporte extends StatelessWidget {
     required this.tipo,
     required this.lugar,
     required this.fecha,
+    required this.title
   });
 
   factory TarjetaDeReporte.fromReporte(Reporte r){
@@ -25,6 +27,7 @@ class TarjetaDeReporte extends StatelessWidget {
       imagen: r.imagen,
       tipo: r.tipo,
       lugar: r.ubicacion,
+      title : r.titulo,
       fecha: r.fecha ?? DateTime.now());
   }
 
@@ -41,8 +44,7 @@ class TarjetaDeReporte extends StatelessWidget {
       child:
           // Card contiene un Column que organiza los elementos verticalmente
           Column(
-            crossAxisAlignment: CrossAxisAlignment
-                .start, // Alinea los elementos al inicio horizontalmente
+            crossAxisAlignment: CrossAxisAlignment.center, // Alinea los elementos al inicio horizontalmente
             children: [
               // ClipRRect es un widget que recorta su hijo con un borde redondeado
               ClipRRect(
@@ -64,10 +66,12 @@ class TarjetaDeReporte extends StatelessWidget {
                 padding: const EdgeInsets.all(12.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment
-                      .start, // Alinea los elementos al inicio horizontalmente
+                      .center, // Alinea los elementos al inicio horizontalmente
                   children: [
                     // Fila para mostrar la ubicación
+                    Text(title, style: TextStyle(fontSize: 24,),),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Icon(
                           Icons.location_on,
@@ -85,6 +89,7 @@ class TarjetaDeReporte extends StatelessWidget {
                     const SizedBox(height: 4),
                     // Fila para mostrar la fecha
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Icon(
                           Icons.calendar_today,
@@ -102,6 +107,7 @@ class TarjetaDeReporte extends StatelessWidget {
                     const SizedBox(height: 8),
                     // Fila para mostrar el tipo de categoría
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Icon(
                           Icons.category,
