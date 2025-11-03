@@ -14,6 +14,9 @@ class MediatorScreen extends StatefulWidget {
 
 class _MediatorScreen extends State<MediatorScreen> {
   categorias? c;
+  int perdidoSelect=-1;
+  int encontradoSelect=-1;
+
   @override
   Widget build(BuildContext context) {
     DataBase db = DataBase();
@@ -41,9 +44,9 @@ class _MediatorScreen extends State<MediatorScreen> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 //Lista de objetos encontrados (Creados en vista Admin)
-                ListaReportes(getReporte: db.getReporteEncontrado,size: db.encontradosSize(c), notify: manageEncontrado,),
+                ListaReportes(getReporte: db.getReporteEncontrado,size: db.encontradosSize(c), notify: manageEncontrado, selectedReport: encontradoSelect,),
                 //Lista de objetos perdidos (Creados en vista Perdedor)
-                ListaReportes(getReporte: db.getReportePerdido, size: db.perdidosSize(c), notify: managePerdido,)
+                ListaReportes(getReporte: db.getReportePerdido, size: db.perdidosSize(c), notify: managePerdido, selectedReport: perdidoSelect,)
               ],
             ),
           ),
@@ -54,10 +57,18 @@ class _MediatorScreen extends State<MediatorScreen> {
   ///Metodo encargado de manejar cuando el usuario mediador presiona un reporte de objeto perdido (de momento placeholder)
   void managePerdido(Reporte r){
     dev.log("Este es un reporte perdido: ${r.titulo}");
+    setState(() {
+      int nextsel = DataBase().reportesPerdido.indexOf(r);
+      perdidoSelect = (perdidoSelect!=nextsel)?nextsel:-1;
+    });
   }
   ///Metodo encargado de manejar cuando el usuario mediador presiona un reporte de objeto encontrado (de momento placeholder)
   void manageEncontrado(Reporte r){
     dev.log("Este es un reporte encontrado: ${r.titulo}");
+    setState(() {
+      int nextsel = DataBase().reportesEncontrado.indexOf(r);
+      encontradoSelect =(encontradoSelect!=nextsel)?nextsel:-1;
+    });
   }
   ///Metodo encargado de manejar la categoria seleccionada
   void manageCategoria(categorias category){
@@ -73,7 +84,8 @@ class ListaReportes extends StatelessWidget {
   final ValueChanged<Reporte> notify;
   final Function(int) getReporte;
   final int size;
-  const ListaReportes({super.key, required this.getReporte, required this.size, required this.notify});
+  final int selectedReport;
+  const ListaReportes({super.key, required this.getReporte, required this.size, required this.notify, required this.selectedReport});
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +93,7 @@ class ListaReportes extends StatelessWidget {
       child: ListView.builder(
         itemCount: size,
         itemBuilder: (context, index) {
-          return GestureDetector(onTap: () => notify(getReporte(index)), child: TarjetaDeReporte.fromReporte(getReporte(index)));
+          return GestureDetector(onTap: () => notify(getReporte(index)), child: TarjetaDeReporte.fromReporte(getReporte(index), isSelected: index==selectedReport));
         },
       ),
     );

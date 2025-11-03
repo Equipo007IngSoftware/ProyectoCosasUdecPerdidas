@@ -11,6 +11,7 @@ class TarjetaDeReporte extends StatelessWidget {
   final Ubicacion lugar;
   final DateTime fecha;
   final String title;
+  final bool isSelected;
 
   //Constructor
   const TarjetaDeReporte({
@@ -19,16 +20,18 @@ class TarjetaDeReporte extends StatelessWidget {
     required this.tipo,
     required this.lugar,
     required this.fecha,
-    required this.title
+    required this.title,
+    this.isSelected=false
   });
 
-  factory TarjetaDeReporte.fromReporte(Reporte r){
+  factory TarjetaDeReporte.fromReporte(Reporte r, {bool isSelected = false}){
     return TarjetaDeReporte(
       imagen: r.imagen,
       tipo: r.tipo,
       lugar: r.ubicacion,
       title : r.titulo,
-      fecha: r.fecha ?? DateTime.now());
+      fecha: r.fecha ?? DateTime.now(),
+      isSelected: isSelected);
   }
 
   // Metodo build para construir la UI de la tarjeta
@@ -40,6 +43,8 @@ class TarjetaDeReporte extends StatelessWidget {
       elevation: 4,
       // Shape define la forma de la tarjeta
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+
+      color: isSelected?Color.fromARGB(255, 160, 150, 255):Color.fromARGB(255, 255, 255, 255),
 
       child:
           // Card contiene un Column que organiza los elementos verticalmente
