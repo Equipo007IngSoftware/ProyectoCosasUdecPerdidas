@@ -35,6 +35,7 @@ class _MediatorScreen extends State<MediatorScreen> {
               }), child: Text("Limpiar Categoria"))
             ],
           ),
+          ///Contenedor Expanded con las dos listas de reportes
           Expanded(
             child: Row(
               mainAxisSize: MainAxisSize.min,
@@ -50,20 +51,24 @@ class _MediatorScreen extends State<MediatorScreen> {
       ),
     );
   }
+  ///Metodo encargado de manejar cuando el usuario mediador presiona un reporte de objeto perdido (de momento placeholder)
   void managePerdido(Reporte r){
     dev.log("Este es un reporte perdido: ${r.titulo}");
   }
+  ///Metodo encargado de manejar cuando el usuario mediador presiona un reporte de objeto encontrado (de momento placeholder)
   void manageEncontrado(Reporte r){
     dev.log("Este es un reporte encontrado: ${r.titulo}");
   }
+  ///Metodo encargado de manejar la categoria seleccionada
   void manageCategoria(categorias category){
-    dev.log("Se seleccionó esta categoria: ${category.label}");
     setState(() {
       c = category;
     });
   }
 }
 
+///Widget de Listview que muestra todos los reportes correspondientes. Se le entrega la función de getReporte, size, y notify en los argumentos de modo que se pueda
+///reutilizar tanto para reportes perdidos como reportes encontrados
 class ListaReportes extends StatelessWidget {
   final ValueChanged<Reporte> notify;
   final Function(int) getReporte;
@@ -72,7 +77,6 @@ class ListaReportes extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    dev.log("$size");
     return Expanded(
       child: ListView.builder(
         itemCount: size,
