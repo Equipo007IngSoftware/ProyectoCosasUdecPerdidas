@@ -114,14 +114,17 @@ class FormPerdedorState extends State<FormPerdedor> {
             ),
             onSaved: (String? value) {
               if (value != null) {
-                correo = value;
+                correo = value.toLowerCase();
               }
             },
             validator: (String? value) {
               if (value == null || value.isEmpty) {
                 return 'Este campo es obligatorio.';
               }
-              if (!RegExp(r'^[a-z]+\@[a-z]+\.[a-z]+$').hasMatch(value)) {
+              if (!RegExp(
+                /*r'^[a-z|A-Z|0-9]+\@[a-z|A-Z|0-9]+\.[a-z]+$',*/
+                r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
+              ).hasMatch(value)) {
                 return 'No tiene formato de correo';
               }
               return null;
@@ -221,7 +224,7 @@ class FormPerdedorState extends State<FormPerdedor> {
               return null;
             },
           ),
-          MenuImagen(img: (value) => img=value),
+          MenuImagen(img: (value) => img = value),
           MenuCategoria(press: (value) => category = value),
           Visibility(
             visible: (chosen == false),
