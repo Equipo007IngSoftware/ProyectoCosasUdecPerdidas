@@ -1,3 +1,4 @@
+import 'package:proyectocosasperdidas/Components/categorias.dart';
 import 'package:proyectocosasperdidas/Components/reporte.dart';
 
 ///Clase de Solución
@@ -29,15 +30,26 @@ class DataBase {
   Reporte getReporteEncontrado(int i){
     return reportesEncontrado[i];
   }
-  int encontradosSize(){
-    return reportesEncontrado.length;
+  int encontradosSize(categorias? c){
+    if (c==null) return reportesEncontrado.length;
+    int amount = 0;
+    for (Reporte r in reportesEncontrado){
+      if (r.tipo == c) amount++;
+    }
+    return amount;
   }
    Reporte getReportePerdido(int i){
     return reportesPerdido[i];
   }
-  int perdidosSize(){
-    return reportesPerdido.length;
+  int perdidosSize(categorias? c){
+    if (c==null) return reportesPerdido.length;
+    int amount = 0;
+    for (Reporte r in reportesPerdido){
+      if (r.tipo == c) amount++;
+    }
+    return amount;
   }
+ 
 
   ///Registra un objeto perdido<br />
   //////```DataBase().registrarReportePerdido(r1);```

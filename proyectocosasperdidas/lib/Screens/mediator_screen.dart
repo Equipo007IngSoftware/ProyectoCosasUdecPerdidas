@@ -1,45 +1,74 @@
 import 'package:flutter/material.dart';
+import 'package:proyectocosasperdidas/Components/categorias.dart';
 import 'package:proyectocosasperdidas/Components/tarjeta_de_reporte.dart';
 import 'package:proyectocosasperdidas/database.dart';
+import 'package:proyectocosasperdidas/Components/reporte.dart';
 import 'dart:developer' as dev;
 
 class MediatorScreen extends StatefulWidget {
-  // Constructor de la clase MediatorScreen
   const MediatorScreen({super.key});
 
-  // Metodo para crear el estado mutable de este widget
   @override
   State<MediatorScreen> createState() => _MediatorScreen();
 }
 
-// Clase privada que maneja el estado de MediatorScreen
 class _MediatorScreen extends State<MediatorScreen> {
-  // Metodo build que describe la parte de la interfaz de usuario representada por este widget
+  categorias? c;
   @override
   Widget build(BuildContext context) {
     DataBase db = DataBase();
-    // Scaffold proporciona una estructura básica para la pantalla, en este caso con una AppBar y un Body
     return Scaffold(
-      // AppBar que contiene un título centrado
       appBar: AppBar(title: const Text("Mediador"), centerTitle: true),
-      // Body que contiene un Center con un texto
-      body: Row(
+      body: Column(
         mainAxisSize: MainAxisSize.min,
+        spacing:10,
         children: [
-          //Lista de objetos encontrados (Vista Admin)
-          ListaReportes(getReporte: db.getReporteEncontrado,size: 9),
-          //Lista de objetos perdidos (Vista Perdedor)
-          ListaReportes(getReporte: db.getReportePerdido, size: 6)
+          SizedBox(height: 10,),
+          ///Fila para manejar las categorias de los reportes mostrados 
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            spacing: 5,
+            children: [
+              MenuCategoria(press: manageCategoria),
+              ElevatedButton(onPressed: ()=>setState(() {
+                c=null;
+              }), child: Text("Limpiar Categoria"))
+            ],
+          ),
+          Expanded(
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                //Lista de objetos encontrados (Creados en vista Admin)
+                ListaReportes(getReporte: db.getReporteEncontrado,size: db.encontradosSize(c), notify: manageEncontrado,),
+                //Lista de objetos perdidos (Creados en vista Perdedor)
+                ListaReportes(getReporte: db.getReportePerdido, size: db.perdidosSize(c), notify: managePerdido,)
+              ],
+            ),
+          ),
         ],
       ),
     );
   }
+  void managePerdido(Reporte r){
+    dev.log("Este es un reporte perdido: ${r.titulo}");
+  }
+  void manageEncontrado(Reporte r){
+    dev.log("Este es un reporte encontrado: ${r.titulo}");
+  }
+  void manageCategoria(categorias category){
+    dev.log("Se seleccionó esta categoria: ${category.label}");
+    setState(() {
+      c = category;
+    });
+  }
 }
 
 class ListaReportes extends StatelessWidget {
+  final ValueChanged<Reporte> notify;
   final Function(int) getReporte;
   final int size;
-  const ListaReportes({super.key, required this.getReporte, required this.size});
+  const ListaReportes({super.key, required this.getReporte, required this.size, required this.notify});
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +77,7 @@ class ListaReportes extends StatelessWidget {
       child: ListView.builder(
         itemCount: size,
         itemBuilder: (context, index) {
-          return TarjetaDeReporte.fromReporte(getReporte(0));
+          return GestureDetector(onTap: () => notify(getReporte(index)), child: TarjetaDeReporte.fromReporte(getReporte(index)));
         },
       ),
     );

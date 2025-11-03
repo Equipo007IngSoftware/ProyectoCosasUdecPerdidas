@@ -54,12 +54,19 @@ class TarjetaDeReporte extends StatelessWidget {
                 ),
                 child:
                     // Image.network carga una imagen desde una URL con un ancho y alto especifico
-                    Image.memory(
-                      imagen!.bytes!,
-                      width: 200,
-                      height: 200,
-                      fit: BoxFit.cover,
-                    ),
+                    (imagen != null && imagen!.bytes != null)
+                        ? Image.memory(
+                            imagen!.bytes!,
+                            width: 200,
+                            height: 200,
+                            fit: BoxFit.cover,
+                          )
+                        : Image.asset(
+                            'report_placeholder.png',
+                            width: 200,
+                            height: 200,
+                            fit: BoxFit.cover,
+                          ),
               ),
               // Padding agrega espacio alrededor de Column
               Padding(
@@ -116,7 +123,7 @@ class TarjetaDeReporte extends StatelessWidget {
                         ),
                         const SizedBox(width: 4),
                         Text(
-                          tipo.name,
+                          tipo.label,
                           style: const TextStyle(color: Colors.grey),
                         ),
                       ],
