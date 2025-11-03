@@ -189,7 +189,7 @@ class FormPerdedorState extends State<FormPerdedor> {
               final DateTime? picked = await showDatePicker(
                 context: context,
                 initialDate: DateTime.now(),
-                firstDate: DateTime(2024),
+                firstDate: DateTime.now().subtract(const Duration(days: 92)),
                 lastDate: DateTime.now(),
                 locale: const Locale('es', 'ES'),
               );
