@@ -42,7 +42,7 @@ class FormAdminState extends State<FormAdmin> {
   late Ubicacion place;
   late Reporte reporte;
   late DateTime fecha;
-  Estado estado = Estado.perdido;
+  Estado estado = Estado.encontrado;
   late String descr;
   late String objeto;
   late categorias category;
