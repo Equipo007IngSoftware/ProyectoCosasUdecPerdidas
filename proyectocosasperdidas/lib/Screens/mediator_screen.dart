@@ -32,7 +32,7 @@ class _MediatorScreen extends State<MediatorScreen> {
               MenuCategoria(press: manageCategoria),
               ElevatedButton(onPressed: ()=>setState(() {
                 c=null;
-              }), child: Text("Limpiar Categoria"))
+              }), child: Text("Cualquier Categoria"))
             ],
           ),
           ///Contenedor Expanded con las dos listas de reportes
@@ -41,9 +41,9 @@ class _MediatorScreen extends State<MediatorScreen> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 //Lista de objetos encontrados (Creados en vista Admin)
-                ListaReportes(getReporte: db.getReporteEncontrado,size: db.encontradosSize(c), notify: manageEncontrado,),
+                ListaReportes(getReporte: db.getReporteEncontrado,size: db.encontradosSize(c), notify: manageEncontrado, selected_category: c,),
                 //Lista de objetos perdidos (Creados en vista Perdedor)
-                ListaReportes(getReporte: db.getReportePerdido, size: db.perdidosSize(c), notify: managePerdido,)
+                ListaReportes(getReporte: db.getReportePerdido, size: db.perdidosSize(c), notify: managePerdido, selected_category: c,)
               ],
             ),
           ),
@@ -71,9 +71,10 @@ class _MediatorScreen extends State<MediatorScreen> {
 ///reutilizar tanto para reportes perdidos como reportes encontrados
 class ListaReportes extends StatelessWidget {
   final ValueChanged<Reporte> notify;
-  final Function(int) getReporte;
+  final Function(int, categorias?) getReporte;
+  final categorias? selected_category;
   final int size;
-  const ListaReportes({super.key, required this.getReporte, required this.size, required this.notify});
+  const ListaReportes({super.key, required this.getReporte, required this.size, required this.notify, required this.selected_category});
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +82,8 @@ class ListaReportes extends StatelessWidget {
       child: ListView.builder(
         itemCount: size,
         itemBuilder: (context, index) {
-          return GestureDetector(onTap: () => notify(getReporte(index)), child: TarjetaDeReporte.fromReporte(getReporte(index)));
+          Reporte r = getReporte(index, selected_category);
+          return GestureDetector(onTap: () => notify(r), child: TarjetaDeReporte.fromReporte(r));
         },
       ),
     );
