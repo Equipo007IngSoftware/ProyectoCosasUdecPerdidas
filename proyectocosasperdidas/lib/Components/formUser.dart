@@ -9,6 +9,7 @@ import 'package:proyectocosasperdidas/Components/estado.dart';
 import 'package:proyectocosasperdidas/Components/Imagen.dart';
 import 'package:proyectocosasperdidas/database.dart';
 
+//clase que crea un formulario que le permite al usuario crear un reporte de un objeto perdido
 class FormUser extends StatefulWidget {
   @override
   FormUserState createState() {
@@ -18,19 +19,19 @@ class FormUser extends StatefulWidget {
 
 class FormUserState extends State<FormUser> {
   final _formKey = GlobalKey<FormState>();
-  late Identificacion id;
-  late String nombre;
-  late String numero;
-  late String correo;
-  late Ubicacion place;
-  late Reporte reporte;
-  late DateTime fecha;
-  Estado estado = Estado.perdido;
-  late String descr;
-  late String objeto;
-  late categorias category;
-  PlatformFile? img;
-  bool chosen = true;
+  late Identificacion id; //identificación del usuario
+  late String nombre; //nombre del usuario
+  late String numero; //número de télefono del usuario
+  late String correo; //correo del usuario
+  late Ubicacion place; //lugar donde el usuario perdió el objeto
+  late Reporte reporte; //reporte a crear
+  late DateTime fecha; //fecha cuándo perdió el objeto
+  Estado estado = Estado.perdido; //reporte se crea con status de perdido
+  late String descr; //descripción del objeto
+  late String objeto; //objeto perdido
+  late categorias category; //categoría del objeto
+  PlatformFile? img; //imagen del objeto
+  bool chosen = true; //flag para saber si se ha escogido categoría
   TextEditingController _fechaController = TextEditingController();
 
   @override
@@ -83,7 +84,7 @@ class FormUserState extends State<FormUser> {
               }
               if (!RegExp(r'^\+[0-9]+$').hasMatch(value)) {
                 return ("Asegúrate de que solo hay números después del +");
-              }
+              } //chequea que sea un + seguido solamente de números
 
               return null;
             },
@@ -108,7 +109,7 @@ class FormUserState extends State<FormUser> {
                 r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
               ).hasMatch(value)) {
                 return 'No tiene formato de correo';
-              }
+              } //chequea formato básico de correo
               return null;
             },
           ),
@@ -171,9 +172,14 @@ class FormUserState extends State<FormUser> {
               final DateTime? picked = await showDatePicker(
                 context: context,
                 initialDate: DateTime.now(),
-                firstDate: DateTime.now().subtract(const Duration(days: 92)),
+                firstDate: DateTime.now().subtract(
+                  const Duration(days: 92),
+                ), //permite hasta aprox 3 meses antes de la fecha actual
                 lastDate: DateTime.now(),
-                locale: const Locale('es', 'ES'),
+                locale: const Locale(
+                  'es',
+                  'ES',
+                ), //sistema "latino" de fechas (dd/mm/aaaa)
               );
               if (picked != null) {
                 setState(() {
@@ -209,7 +215,9 @@ class FormUserState extends State<FormUser> {
           MenuImagen(img: (value) => img = value),
           MenuCategoria(press: (value) => category = value),
           Visibility(
-            visible: (chosen == false),
+            visible:
+                (chosen ==
+                false), //si es que no se ha seleccionado categoría y se trata de mandar el reporte, el flag será falso y advertencia es visible
             child: const Padding(
               padding: EdgeInsets.only(top: 2.0),
               child: Text(
@@ -223,11 +231,13 @@ class FormUserState extends State<FormUser> {
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
                 try {
+                  //trata de crear identificación del usuario
                   id = Identificacion(
                     id_o_nombre: nombre,
                     numero: numero,
                     correo: correo,
                   );
+                  //trata de crear el reporte
                   reporte = Reporte(
                     titulo: objeto,
                     fecha: fecha,
@@ -241,12 +251,15 @@ class FormUserState extends State<FormUser> {
                   setState(() {
                     chosen = true;
                   });
-                  DataBase().registrarReportePerdido(reporte);
+                  DataBase().registrarReportePerdido(
+                    reporte,
+                  ); //registra reporte en la base de datos
                   Navigator.pop(context);
                   ScaffoldMessenger.of(
                     context,
                   ).showSnackBar(const SnackBar(content: Text('Enviado')));
                 } catch (e) {
+                  //si es que no se escogido categoría lanza una excepción, la atrapamos y marcamos la flag como falsa para hacer visible la advertencia
                   setState(() {
                     chosen = false;
                   });

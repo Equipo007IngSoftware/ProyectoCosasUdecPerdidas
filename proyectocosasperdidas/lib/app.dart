@@ -15,8 +15,8 @@ class MyApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: const [
-        Locale('es', 'ES'), // Spanish
-        Locale('en', 'US'), // English (optional fallback)
+        Locale('es', 'ES'), // Español
+        Locale('en', 'US'), // Inglés (fallback si es que no funciona español)
       ],
       theme: ThemeData(primarySwatch: Colors.blue),
       home: HomeScreen(),
