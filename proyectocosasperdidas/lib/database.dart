@@ -7,7 +7,6 @@ import 'package:proyectocosasperdidas/Components/reporte.dart';
 class Solucion {
   final Reporte perdido;
   final Reporte encontrado;
-
   Solucion(this.perdido, this.encontrado);
 }
 
@@ -27,8 +26,19 @@ class DataBase {
   final List<Reporte> reportesEncontrado = [];
   final List<Solucion> reportesSolucionado = [];
 
-  Reporte getReporteEncontrado(int i){
-    return reportesEncontrado[i];
+  Reporte getReporteEncontrado(int i, categorias? c){
+    if (c==null) return reportesEncontrado[i];
+    int amount = 0;
+    for (Reporte r in reportesEncontrado){
+      if (r.tipo == c){
+        if (amount == i) {
+          return r;
+        } else {
+          amount++;
+        }
+      }
+    }
+    throw Exception("No existe(n) ${i+1} reporte(s) de esa categoria");
   }
   int encontradosSize(categorias? c){
     if (c==null) return reportesEncontrado.length;
@@ -38,8 +48,19 @@ class DataBase {
     }
     return amount;
   }
-   Reporte getReportePerdido(int i){
-    return reportesPerdido[i];
+   Reporte getReportePerdido(int i, categorias? c){
+    if (c==null) return reportesPerdido[i];
+    int amount = 0;
+    for (Reporte r in reportesPerdido){
+      if (r.tipo == c){
+        if (amount == i) {
+          return r;
+        } else {
+          amount++;
+        }
+      }
+    }
+    throw Exception("No existe(n) ${i+1} reporte(s) de esa categoria");
   }
   int perdidosSize(categorias? c){
     if (c==null) return reportesPerdido.length;
