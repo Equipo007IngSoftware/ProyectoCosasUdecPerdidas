@@ -124,12 +124,12 @@ class FormAdminState extends State<FormAdmin> {
               }
               return null;
             },
-          ), 
+          ),
           TextFormField(
             controller: _fechaController,
             readOnly: true,
             decoration: const InputDecoration(
-              labelText: 'Fecha cuando perdió el objeto *',
+              labelText: 'Fecha cuando encontró el objeto *',
               hintText: 'dd/mm/aaaa',
               contentPadding: EdgeInsets.fromLTRB(16, 0, 16, 0),
             ),
@@ -143,7 +143,7 @@ class FormAdminState extends State<FormAdmin> {
               final DateTime? picked = await showDatePicker(
                 context: context,
                 initialDate: DateTime.now(),
-                firstDate: DateTime(2024),
+                firstDate: DateTime.now().subtract(const Duration(days: 92)),
                 lastDate: DateTime.now(),
                 locale: const Locale('es', 'ES'),
               );
@@ -178,9 +178,9 @@ class FormAdminState extends State<FormAdmin> {
               return null;
             },
           ),
-          MenuImagen(img: (value) => img=value),
+          MenuImagen(img: (value) => img = value),
           Visibility(
-            visible: (img == null && chosenimage==false),
+            visible: (img == null && chosenimage == false),
             child: const Padding(
               padding: EdgeInsets.only(top: 2.0),
               child: Text(
@@ -206,12 +206,12 @@ class FormAdminState extends State<FormAdmin> {
                 _formKey.currentState!.save();
                 //si es que no tiene imagen entonces no permite enviar el reporte
                 if (img == null) {
-                setState(() {
-                  chosenimage = false;
-                });
-                return;
+                  setState(() {
+                    chosenimage = false;
+                  });
+                  return;
                 }
-                
+
                 try {
                   reporte = Reporte(
                     titulo: objeto,
