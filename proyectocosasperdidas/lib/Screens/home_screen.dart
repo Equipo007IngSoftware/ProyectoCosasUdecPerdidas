@@ -12,7 +12,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       //appBar simplemente tiene un título centrado
       appBar: AppBar(
-        title: const Text("Proyecto Cosas Perdidas"),
+        title: const Text("Proyecto Cosas Perdidas UdeC"),
         centerTitle: true, // Centra el título
       ),
       //body simplemente contiene un Center

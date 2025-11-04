@@ -24,7 +24,7 @@ class Formulario extends StatelessWidget {
               children: [
                 (tipo == Estado.perdido) ? FormUser() : FormAdmin(),
                 //const MenuCategoria(),
-                Text((tipo == Estado.perdido) ? "modo usuario" : "soy admin"),
+                //Text((tipo == Estado.perdido) ? "modo usuario" : "soy admin"),
               ],
             ),
           ),

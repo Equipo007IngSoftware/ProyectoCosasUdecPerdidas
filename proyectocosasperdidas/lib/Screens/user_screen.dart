@@ -18,7 +18,10 @@ class _UserScreen extends State<UserScreen> {
     // Scaffold proporciona una estructura básica para la pantalla, en este caso con una AppBar y un Body
     return Scaffold(
       // AppBar que contiene un título centrado
-      appBar: AppBar(title: const Text("Usuario"), centerTitle: true),
+      appBar: AppBar(
+        title: const Text("Proyecto cosas perdidas UdeC"),
+        centerTitle: true,
+      ),
       // Body que contiene un Center con un texto
       body: Center(
         child: Column(
