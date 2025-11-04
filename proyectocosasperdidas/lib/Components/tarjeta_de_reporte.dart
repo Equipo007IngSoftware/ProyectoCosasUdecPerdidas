@@ -11,6 +11,7 @@ class TarjetaDeReporte extends StatelessWidget {
   final Ubicacion lugar;
   final DateTime fecha;
   final String title;
+  final String description;
   final bool isSelected;
 
   //Constructor
@@ -21,6 +22,7 @@ class TarjetaDeReporte extends StatelessWidget {
     required this.lugar,
     required this.fecha,
     required this.title,
+    required this.description,
     this.isSelected=false
   });
 
@@ -31,6 +33,7 @@ class TarjetaDeReporte extends StatelessWidget {
       lugar: r.ubicacion,
       title : r.titulo,
       fecha: r.fecha ?? DateTime.now(),
+      description: r.descripcion,
       isSelected: isSelected);
   }
 
@@ -82,6 +85,10 @@ class TarjetaDeReporte extends StatelessWidget {
                   children: [
                     // Fila para mostrar la ubicación
                     Text(title, style: TextStyle(fontSize: 24,),),
+                    if (isSelected)Text(
+                          description,
+                          style: const TextStyle(color: Color.fromARGB(255, 13, 13, 13), backgroundColor: Color.fromARGB(255, 166, 179, 255)),
+                        ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
