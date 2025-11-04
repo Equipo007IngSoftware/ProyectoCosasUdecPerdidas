@@ -172,7 +172,7 @@ class _TarjetaDeReporteState extends State<TarjetaDeReporte> {
                     )
                   : Image.asset(
                       // Placeholder si no hay imagen
-                      'placeholder.png',
+                      'lib/Components/assets/report_placeholder.png',
                       height: _isExpanded ? 250 : 150,
                       fit: BoxFit.contain,
                     ),
