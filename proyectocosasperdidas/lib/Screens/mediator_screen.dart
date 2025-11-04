@@ -42,22 +42,33 @@ class _MediatorScreen extends State<MediatorScreen> {
               ),
             ],
           ),
-          ElevatedButton(onPressed: (perdidoSelect != -1 && encontradoSelect != -1)
+          ElevatedButton(
+            onPressed: (perdidoSelect != -1 && encontradoSelect != -1)
                 ? () {
                     setState(() {
                       if (db.emparejar(
-                        db.getReportePerdido(perdidoSelect,null),
-                        db.getReporteEncontrado(encontradoSelect,null),
-                      )){
-                        ScaffoldMessenger.of(
-                          context,
-                        ).showSnackBar(const SnackBar(content: Text('Emparejado',textAlign: TextAlign.center,),backgroundColor: Colors.green));
-                      };
+                        db.getReportePerdido(perdidoSelect, null),
+                        db.getReporteEncontrado(encontradoSelect, null),
+                      )) {
+                        perdidoSelect = -1;
+                        encontradoSelect = -1;
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text(
+                              'Emparejado',
+                              textAlign: TextAlign.center,
+                            ),
+                            backgroundColor: Colors.green,
+                          ),
+                        );
+                      }
+                      ;
                     });
                   }
                 : null,
-              child: Text("Emparejar"),
-              ),
+            child: Text("Emparejar"),
+          ),
+
           ///Contenedor Expanded con las dos listas de reportes
           Expanded(
             child: Row(
@@ -69,7 +80,7 @@ class _MediatorScreen extends State<MediatorScreen> {
                   size: db.encontradosSize(c),
                   notify: manageEncontrado,
                   selectedReport: encontradoSelect,
-                  selected_category: c
+                  selected_category: c,
                 ),
                 //Lista de objetos perdidos (Creados en vista Perdedor)
                 ListaReportes(
@@ -77,12 +88,11 @@ class _MediatorScreen extends State<MediatorScreen> {
                   size: db.perdidosSize(c),
                   notify: managePerdido,
                   selectedReport: perdidoSelect,
-                  selected_category: c
+                  selected_category: c,
                 ),
               ],
             ),
           ),
-          
         ],
       ),
     );
@@ -118,7 +128,7 @@ class _MediatorScreen extends State<MediatorScreen> {
 ///reutilizar tanto para reportes perdidos como reportes encontrados
 class ListaReportes extends StatelessWidget {
   final ValueChanged<Reporte> notify;
-  final Function(int,categorias?) getReporte;
+  final Function(int, categorias?) getReporte;
   final categorias? selected_category;
   final int size;
   final int selectedReport;
@@ -128,7 +138,7 @@ class ListaReportes extends StatelessWidget {
     required this.size,
     required this.notify,
     required this.selectedReport,
-   required this.selected_category
+    required this.selected_category,
   });
 
   @override
@@ -139,7 +149,7 @@ class ListaReportes extends StatelessWidget {
         itemBuilder: (context, index) {
           // Construye cada TarjetaDeReporte usando el factory desde un Reporte obtenido por getReporte
           return TarjetaDeReporte.fromReporte(
-            getReporte(index,selected_category),
+            getReporte(index, selected_category),
             onTap: notify,
             isSelected: index == selectedReport,
           );
