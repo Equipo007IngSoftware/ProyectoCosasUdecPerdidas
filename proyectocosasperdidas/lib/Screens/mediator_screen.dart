@@ -38,6 +38,22 @@ class _MediatorScreen extends State<MediatorScreen> {
               }), child: Text("Limpiar Categoria"))
             ],
           ),
+          ElevatedButton(onPressed: (perdidoSelect != -1 && encontradoSelect != -1)
+                ? () {
+                    setState(() {
+                      if (db.emparejar(
+                        db.getReportePerdido(perdidoSelect),
+                        db.getReporteEncontrado(encontradoSelect),
+                      )){
+                        ScaffoldMessenger.of(
+                          context,
+                        ).showSnackBar(const SnackBar(content: Text('Emparejado',textAlign: TextAlign.center,),backgroundColor: Colors.green));
+                      };
+                    });
+                  }
+                : null,
+              child: Text("Emparejar"),
+              ),
           ///Contenedor Expanded con las dos listas de reportes
           Expanded(
             child: Row(
@@ -50,6 +66,7 @@ class _MediatorScreen extends State<MediatorScreen> {
               ],
             ),
           ),
+          
         ],
       ),
     );
