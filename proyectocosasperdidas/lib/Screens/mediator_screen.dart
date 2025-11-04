@@ -82,7 +82,7 @@ class _MediatorScreen extends State<MediatorScreen> {
                   selectedReport: encontradoSelect,
                   selected_category: c,
                 ),
-                //Lista de objetos perdidos (Creados en vista Perdedor)
+                //Lista de objetos perdidos (Creados en vista Usuario)
                 ListaReportes(
                   getReporte: db.getReportePerdido,
                   size: db.perdidosSize(c),

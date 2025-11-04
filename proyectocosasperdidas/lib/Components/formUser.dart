@@ -8,33 +8,15 @@ import 'package:proyectocosasperdidas/Components/reporte.dart';
 import 'package:proyectocosasperdidas/Components/estado.dart';
 import 'package:proyectocosasperdidas/Components/Imagen.dart';
 import 'package:proyectocosasperdidas/database.dart';
-/*void main() => runApp(const MyApp());
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
+class FormUser extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    const appTitle = 'Formulario para reportar perdida de objeto';
-
-    return MaterialApp(
-      title: appTitle,
-      home: Scaffold(
-        appBar: AppBar(title: const Text(appTitle)),
-        body: FormPerdedor(),
-      ),
-    );
-  }
-}*/
-
-class FormPerdedor extends StatefulWidget {
-  @override
-  FormPerdedorState createState() {
-    return FormPerdedorState();
+  FormUserState createState() {
+    return FormUserState();
   }
 }
 
-class FormPerdedorState extends State<FormPerdedor> {
+class FormUserState extends State<FormUser> {
   final _formKey = GlobalKey<FormState>();
   late Identificacion id;
   late String nombre;
@@ -108,7 +90,7 @@ class FormPerdedorState extends State<FormPerdedor> {
           ),
           TextFormField(
             decoration: const InputDecoration(
-              hintText: 'perdedor@gmail.com',
+              hintText: 'user@gmail.com',
               labelText: 'Correo *',
               contentPadding: EdgeInsets.fromLTRB(16, 0, 16, 0),
             ),

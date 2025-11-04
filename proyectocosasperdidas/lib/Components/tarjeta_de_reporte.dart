@@ -52,7 +52,7 @@ class _TarjetaDeReporteState extends State<TarjetaDeReporte> {
     }
   }
 
-  // Widget que construye los detalles adicionales del Admin o Perdedor.
+  // Widget que construye los detalles adicionales del Admin o User (persona que extravió algo).
   Widget _buildDetallesAdicionales() {
     // Determina el tipo de estado del reporte (perdido encontrado)
     final isPerdido = widget.reporte.estado.toString().contains('perdido');
@@ -79,9 +79,9 @@ class _TarjetaDeReporteState extends State<TarjetaDeReporte> {
       Text(widget.reporte.descripcion, style: const TextStyle(fontSize: 14)),
       const SizedBox(height: 8),
 
-      // Detalles específicos del Perdedor
+      // Detalles específicos del Usuario
       if (isPerdido) ...[
-        // Nombre del perdedor
+        // Nombre del usuario
         Text(
           'Contacto (Nombre):',
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
