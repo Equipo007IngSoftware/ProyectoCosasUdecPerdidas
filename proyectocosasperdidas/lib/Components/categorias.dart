@@ -26,7 +26,6 @@ class MenuCategoria extends StatelessWidget {
     return DropdownMenu<categorias>(
       label: Text("Categoria"),
       width: 250,
-      initialSelection: categorias.otro,
       dropdownMenuEntries: categorias.values.map<DropdownMenuEntry<categorias>>(
         (categorias c) {
           return DropdownMenuEntry<categorias>(
