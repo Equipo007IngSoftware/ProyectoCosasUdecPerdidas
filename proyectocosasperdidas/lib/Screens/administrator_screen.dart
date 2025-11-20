@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:proyectocosasperdidas/Components/categorias.dart';
 import 'package:proyectocosasperdidas/Components/estado.dart';
+import 'package:proyectocosasperdidas/Components/tarjeta_de_reporte.dart';
 import 'package:proyectocosasperdidas/Screens/form.dart';
+import 'package:proyectocosasperdidas/database.dart';
 
 class AdministratorScreen extends StatefulWidget {
   // Constructor de la clase AdministratorScreen
@@ -24,7 +26,6 @@ class _AdministratorScreen extends State<AdministratorScreen> {
       // Body que contiene un Center con un texto
       body: Center(child: Column(
         children: [
-          const Text("Pantalla de Administrador"),
           //Boton que lleva a Formulario
           ElevatedButton(
             onPressed: () {
@@ -49,8 +50,30 @@ class _AdministratorScreen extends State<AdministratorScreen> {
               ),
             child: const Text("Crear Reporte"),
           ),
+          ListaReportesPares(DataBase().reportesSolucionado),
         ],
       )),
+    );
+  }
+}
+
+///Widget de Listview que muestra todos los reportes correspondientes. Se le entrega la función de getReporte, size, y notify en los argumentos de modo que se pueda
+///reutilizar tanto para reportes perdidos como reportes encontrados
+class ListaReportesPares extends StatelessWidget {
+  //final ValueChanged<Reporte> notify;
+  final List<Solucion> soluciones;
+  //final int selectedReport;
+  const ListaReportesPares(this.soluciones, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: ListView.builder(
+        itemCount: soluciones.length,
+        itemBuilder: (context, index) {
+          return GestureDetector(/*onTap: () => notify(getReporte(index)), */child: TarjetaDeReporte.fromReporte(soluciones[index].perdido/*, isSelected: index==selectedReport*/));
+        },
+      ),
     );
   }
 }
