@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:proyectocosasperdidas/Screens/loser_screen.dart';
+import 'package:proyectocosasperdidas/Screens/user_screen.dart';
 import 'package:proyectocosasperdidas/screens/mediator_screen.dart';
 import 'administrator_screen.dart';
 
@@ -12,7 +12,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       //appBar simplemente tiene un título centrado
       appBar: AppBar(
-        title: const Text("Proyecto Cosas Perdidas"),
+        title: const Text("Proyecto Cosas Perdidas UdeC"),
         centerTitle: true, // Centra el título
       ),
       //body simplemente contiene un Center
@@ -98,7 +98,7 @@ class HomeScreen extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const LoserScreen(),
+                            builder: (context) => const UserScreen(),
                           ),
                         );
                       },
@@ -116,7 +116,7 @@ class HomeScreen extends StatelessWidget {
                         ),
                       ),
                       // Texto del botón
-                      child: const Text("Perdedor"),
+                      child: const Text("Usuario"),
                     ),
                   ],
                 ),

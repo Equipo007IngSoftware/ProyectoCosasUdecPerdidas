@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:proyectocosasperdidas/Components/estado.dart';
 import 'package:proyectocosasperdidas/Components/formAdmin.dart';
-import 'package:proyectocosasperdidas/Components/formPerdedor.dart';
+import 'package:proyectocosasperdidas/Components/formUser.dart';
 
 ///Pantalla de Formulario
 ///
@@ -22,7 +22,7 @@ class Formulario extends StatelessWidget {
               margin: const EdgeInsets.fromLTRB(16, 30, 16, 0),
               child: Column(
                 children: [
-                  (tipo == Estado.perdido) ? FormPerdedor() : FormAdmin(),
+                  (tipo == Estado.perdido) ? FormUser() : FormAdmin(),
                   //const MenuCategoria(),
                 ],
               ),
