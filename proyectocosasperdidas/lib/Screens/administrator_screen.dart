@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:proyectocosasperdidas/Components/categorias.dart';
 import 'package:proyectocosasperdidas/Components/estado.dart';
 import 'package:proyectocosasperdidas/Components/reporte.dart';
 import 'package:proyectocosasperdidas/Components/tarjeta_de_reporte.dart';
@@ -25,20 +24,21 @@ class _AdministratorScreen extends State<AdministratorScreen> {
       // AppBar que contiene un título centrado
       appBar: AppBar(title: const Text("Administrador"), centerTitle: true),
       // Body que contiene un Center con un texto
-      body: Center(child: Column(
-        children: [
-          //Boton que lleva a Formulario
-          ElevatedButton(
-            onPressed: () {
+      body: Center(
+        child: Column(
+          children: [
+            //Boton que lleva a Formulario
+            ElevatedButton(
+              onPressed: () {
                 Navigator.push(
                   context,
                   //se abre un formulario en modo de objeto encontrado
                   MaterialPageRoute(
-                    builder: (context) => Formulario(tipo: Estado.encontrado,),
+                    builder: (context) => Formulario(tipo: Estado.encontrado),
                   ),
                 );
               },
-            style: ElevatedButton.styleFrom(
+              style: ElevatedButton.styleFrom(
                 foregroundColor: Colors.white,
                 backgroundColor: Colors.blue,
                 shape: RoundedRectangleBorder(
@@ -49,16 +49,16 @@ class _AdministratorScreen extends State<AdministratorScreen> {
                   vertical: 15,
                 ),
               ),
-            child: const Text("Crear Reporte"),
-          ),
-          ListaReportesPares(DataBase().reportesSolucionado),
-        ],
-      )),
+              child: const Text("Crear Reporte"),
+            ),
+            ListaReportesPares(DataBase().reportesSolucionado),
+          ],
+        ),
+      ),
     );
   }
 }
-
-class ListaReportesPares extends StatelessWidget {
+/*class ListaReportesPares extends StatelessWidget {
   //final ValueChanged<Reporte> notify;
   final List<Solucion> soluciones;
   //final int selectedReport;
@@ -71,6 +71,70 @@ class ListaReportesPares extends StatelessWidget {
         itemCount: soluciones.length,
         itemBuilder: (context, index) {
           return TarjetaDeReporte.fromReporte(soluciones[index].perdido, onTap: (Reporte value) {},/*, isSelected: index==selectedReport*/);
+        },
+      ),
+    );
+  }
+}*/
+
+class ListaReportesPares extends StatefulWidget {
+  final List<Solucion> soluciones;
+
+  const ListaReportesPares(this.soluciones, {super.key});
+
+  @override
+  State<ListaReportesPares> createState() => _ListaReportesParesState();
+}
+
+class _ListaReportesParesState extends State<ListaReportesPares> {
+  // Almacena el índice de la fila de pares de reportes actualmente expandida
+  // -1 significa que ninguna tarjeta esta expandida.
+  int _expandedIndex = -1;
+
+  // Callback que se llama cuando se toca cualquiera de las dos tarjetas en una fila (expande o contrae ambas tarjetas)
+  void _handleTap(int index) {
+    setState(() {
+      _expandedIndex = (index == _expandedIndex) ? -1 : index;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: ListView.builder(
+        itemCount: widget.soluciones.length,
+        itemBuilder: (context, index) {
+          final Solucion solucion = widget.soluciones[index];
+          // Determina si el par actual debe estar expandido
+          final bool isExpanded = index == _expandedIndex;
+
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            // Row para colocar las dos tarjetas una al lado de la otra
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Tarjeta 1: Reporte Perdido
+                Expanded(
+                  child: TarjetaDeReporte.fromReporte(
+                    solucion.perdido,
+                    onTap: (Reporte value) => _handleTap(index),
+                    isSelected:
+                        isExpanded, // Sincroniza el estado (expandido o no)
+                  ),
+                ),
+                // Tarjeta 2: Reporte Encontrado
+                Expanded(
+                  child: TarjetaDeReporte.fromReporte(
+                    solucion.encontrado,
+                    onTap: (Reporte value) => _handleTap(index),
+                    isSelected:
+                        isExpanded, // Sincroniza el estado (expandido o no)
+                  ),
+                ),
+              ],
+            ),
+          );
         },
       ),
     );
