@@ -17,7 +17,7 @@ class AdministratorScreen extends StatefulWidget {
 // Clase privada que maneja el estado de AdministratorScreen
 class _AdministratorScreen extends State<AdministratorScreen> {
   //variable que dice si hay algun par de reporte seleccionado
-  bool haySeleccion = false;
+  int seleccionIndex = -1;
 
   // Metodo build que describe la parte de la interfaz de usuario representada por este widget
   @override
@@ -55,8 +55,7 @@ class _AdministratorScreen extends State<AdministratorScreen> {
               child: const Text("Crear Reporte"),
             ),
             Padding(padding: EdgeInsets.all(8)),
-
-            if (haySeleccion)
+            if (seleccionIndex != -1)
               ElevatedButton(
                 onPressed: () {
                   //muestra popup para preguntarte si estas seguro
@@ -74,6 +73,14 @@ class _AdministratorScreen extends State<AdministratorScreen> {
                         ),
                         ElevatedButton(
                           onPressed: () {
+                            setState(() {
+                              DataBase().reportesEntregados.add(
+                                DataBase().reportesSolucionado.removeAt(
+                                  seleccionIndex,
+                                ),
+                              );
+                              seleccionIndex = -1;
+                            });
                             Navigator.pop(context);
                           },
                           child: const Text("Sí"),
@@ -99,7 +106,7 @@ class _AdministratorScreen extends State<AdministratorScreen> {
               DataBase().reportesSolucionado,
               onSeleccion: (seleccionado) {
                 setState(() {
-                  haySeleccion = seleccionado;
+                  seleccionIndex = seleccionado;
                 });
               },
             ),
@@ -130,7 +137,7 @@ class _AdministratorScreen extends State<AdministratorScreen> {
 
 class ListaReportesPares extends StatefulWidget {
   final List<Solucion> soluciones;
-  final ValueChanged<bool> onSeleccion;
+  final ValueChanged<int> onSeleccion;
   const ListaReportesPares(
     this.soluciones, {
     super.key,
@@ -151,7 +158,7 @@ class _ListaReportesParesState extends State<ListaReportesPares> {
     setState(() {
       _expandedIndex = (index == _expandedIndex) ? -1 : index;
     });
-    widget.onSeleccion(_expandedIndex != -1);
+    widget.onSeleccion(_expandedIndex);
   }
 
   @override
