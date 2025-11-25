@@ -16,6 +16,9 @@ class AdministratorScreen extends StatefulWidget {
 
 // Clase privada que maneja el estado de AdministratorScreen
 class _AdministratorScreen extends State<AdministratorScreen> {
+  //variable que dice si hay algun par de reporte seleccionado
+  bool haySeleccion = false;
+
   // Metodo build que describe la parte de la interfaz de usuario representada por este widget
   @override
   Widget build(BuildContext context) {
@@ -50,8 +53,59 @@ class _AdministratorScreen extends State<AdministratorScreen> {
                 ),
               ),
               child: const Text("Crear Reporte"),
+              
             ),
-            ListaReportesPares(DataBase().reportesSolucionado),
+            Padding(padding: EdgeInsets.all(8))
+            ,
+            
+            if(haySeleccion)
+            ElevatedButton(
+              onPressed: () {
+                //muestra popup para preguntarte si estas seguro
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: const Text("Confirmar?"),
+                    content: const Text("Estos reportes se eliminaran permanentemente de la base de datos"),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.pop(context),
+                        child: const Text("Cancelar"),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text("Sí"),
+                      ),
+                    ],
+                  ),
+                );
+
+              },
+              style: ElevatedButton.styleFrom(
+                foregroundColor: Colors.white,
+                backgroundColor: Colors.blue,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 15,
+                ),
+              ),
+              child: const Text("Marcar como solucionado"),
+            ),
+            ListaReportesPares(
+              DataBase().reportesSolucionado,
+              onSeleccion: (seleccionado) {
+                setState(() {
+                  haySeleccion = seleccionado;
+                });
+              },
+            ),
+            
+            
           ],
         ),
       ),
@@ -79,8 +133,12 @@ class _AdministratorScreen extends State<AdministratorScreen> {
 
 class ListaReportesPares extends StatefulWidget {
   final List<Solucion> soluciones;
-
-  const ListaReportesPares(this.soluciones, {super.key});
+  final ValueChanged<bool> onSeleccion;
+  const ListaReportesPares(
+    this.soluciones, 
+    {super.key, 
+    required this.onSeleccion,
+    });
 
   @override
   State<ListaReportesPares> createState() => _ListaReportesParesState();
@@ -96,6 +154,7 @@ class _ListaReportesParesState extends State<ListaReportesPares> {
     setState(() {
       _expandedIndex = (index == _expandedIndex) ? -1 : index;
     });
+    widget.onSeleccion(_expandedIndex!=-1);
   }
 
   @override
