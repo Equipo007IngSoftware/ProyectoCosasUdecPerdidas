@@ -25,6 +25,7 @@ class DataBase {
   final List<Reporte> reportesPerdido = [];
   final List<Reporte> reportesEncontrado = [];
   final List<Solucion> reportesSolucionado = [];
+  final List<Solucion> reportesEntregados = [];
 
   Reporte getReporteEncontrado(int i, categorias? c){
     if (c==null) return reportesEncontrado[i];

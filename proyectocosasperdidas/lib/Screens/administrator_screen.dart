@@ -17,7 +17,7 @@ class AdministratorScreen extends StatefulWidget {
 // Clase privada que maneja el estado de AdministratorScreen
 class _AdministratorScreen extends State<AdministratorScreen> {
   //variable que dice si hay algun par de reporte seleccionado
-  bool haySeleccion = false;
+  int seleccionIndex=-1;
 
   // Metodo build que describe la parte de la interfaz de usuario representada por este widget
   @override
@@ -53,12 +53,9 @@ class _AdministratorScreen extends State<AdministratorScreen> {
                 ),
               ),
               child: const Text("Crear Reporte"),
-              
             ),
-            Padding(padding: EdgeInsets.all(8))
-            ,
-            
-            if(haySeleccion)
+            Padding(padding: EdgeInsets.all(8)),
+            if(seleccionIndex!=-1)
             ElevatedButton(
               onPressed: () {
                 //muestra popup para preguntarte si estas seguro
@@ -74,6 +71,10 @@ class _AdministratorScreen extends State<AdministratorScreen> {
                       ),
                       ElevatedButton(
                         onPressed: () {
+                          setState((){
+                          DataBase().reportesEntregados.add(DataBase().reportesSolucionado.removeAt(seleccionIndex));
+                          seleccionIndex=-1;
+                          });
                           Navigator.pop(context);
                         },
                         child: const Text("Sí"),
@@ -81,7 +82,6 @@ class _AdministratorScreen extends State<AdministratorScreen> {
                     ],
                   ),
                 );
-
               },
               style: ElevatedButton.styleFrom(
                 foregroundColor: Colors.white,
@@ -100,12 +100,10 @@ class _AdministratorScreen extends State<AdministratorScreen> {
               DataBase().reportesSolucionado,
               onSeleccion: (seleccionado) {
                 setState(() {
-                  haySeleccion = seleccionado;
+                  seleccionIndex = seleccionado;
                 });
               },
             ),
-            
-            
           ],
         ),
       ),
@@ -133,13 +131,14 @@ class _AdministratorScreen extends State<AdministratorScreen> {
 
 class ListaReportesPares extends StatefulWidget {
   final List<Solucion> soluciones;
-  final ValueChanged<bool> onSeleccion;
+  final ValueChanged<int> onSeleccion;
   const ListaReportesPares(
     this.soluciones, 
-    {super.key, 
+    {
+    super.key, 
     required this.onSeleccion,
-    });
-
+    }
+  );
   @override
   State<ListaReportesPares> createState() => _ListaReportesParesState();
 }
@@ -154,7 +153,7 @@ class _ListaReportesParesState extends State<ListaReportesPares> {
     setState(() {
       _expandedIndex = (index == _expandedIndex) ? -1 : index;
     });
-    widget.onSeleccion(_expandedIndex!=-1);
+    widget.onSeleccion(_expandedIndex);
   }
 
   @override
@@ -178,8 +177,7 @@ class _ListaReportesParesState extends State<ListaReportesPares> {
                   child: TarjetaDeReporte.fromReporte(
                     solucion.perdido,
                     onTap: (Reporte value) => _handleTap(index),
-                    isSelected:
-                        isExpanded, // Sincroniza el estado (expandido o no)
+                    isSelected:isExpanded, // Sincroniza el estado (expandido o no)
                   ),
                 ),
                 // Tarjeta 2: Reporte Encontrado
@@ -187,8 +185,7 @@ class _ListaReportesParesState extends State<ListaReportesPares> {
                   child: TarjetaDeReporte.fromReporte(
                     solucion.encontrado,
                     onTap: (Reporte value) => _handleTap(index),
-                    isSelected:
-                        isExpanded, // Sincroniza el estado (expandido o no)
+                    isSelected:isExpanded, // Sincroniza el estado (expandido o no)
                   ),
                 ),
               ],
