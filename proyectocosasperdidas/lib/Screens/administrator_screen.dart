@@ -54,7 +54,14 @@ class _AdministratorScreen extends State<AdministratorScreen> {
               ),
               child: const Text("Crear Reporte"),
             ),
-            Padding(padding: EdgeInsets.all(8)),
+            Divider( //divisor para separar creacion de reporte y lista
+              height: 15,
+              color: Colors.grey,
+              thickness: 3,
+              indent: 16,
+              endIndent: 16,
+            ),
+            Padding(padding: EdgeInsets.all(2)),
             if (seleccionIndex != -1)
               ElevatedButton(
                 onPressed: () {
@@ -67,10 +74,6 @@ class _AdministratorScreen extends State<AdministratorScreen> {
                         "Estos reportes se eliminaran permanentemente de la base de datos",
                       ),
                       actions: [
-                        TextButton(
-                          onPressed: () => Navigator.pop(context),
-                          child: const Text("Cancelar"),
-                        ),
                         ElevatedButton(
                           onPressed: () {
                             setState(() {
@@ -83,7 +86,12 @@ class _AdministratorScreen extends State<AdministratorScreen> {
                             });
                             Navigator.pop(context);
                           },
-                          child: const Text("Sí"),
+                          style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                          child: const Text("Sí", style: TextStyle(color: Colors.black),),
+                        ),
+                        ElevatedButton(
+                          onPressed: () => Navigator.pop(context),
+                          child: const Text("Cancelar"),
                         ),
                       ],
                     ),
