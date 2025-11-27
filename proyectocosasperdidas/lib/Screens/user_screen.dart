@@ -21,13 +21,15 @@ class _UserScreen extends State<UserScreen> {
       appBar: AppBar(
         title: const Text("Proyecto cosas perdidas UdeC"),
         centerTitle: true,
+        backgroundColor: const Color.fromARGB(255, 209, 250, 46),
       ),
       // Body que contiene un Center con un texto
       body: Center(
         child: Column(
           children: [
-            const Text("Pantalla de Usuario"),
+            //const Text("Pantalla de Usuario"),
             //Boton que lleva a Formulario
+            SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
@@ -40,7 +42,7 @@ class _UserScreen extends State<UserScreen> {
               },
               style: ElevatedButton.styleFrom(
                 foregroundColor: Colors.white,
-                backgroundColor: Colors.blue,
+                backgroundColor: const Color.fromARGB(255, 209, 250, 46),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),

@@ -25,11 +25,16 @@ class _AdministratorScreen extends State<AdministratorScreen> {
     // Scaffold proporciona una estructura básica para la pantalla, en este caso con una AppBar y un Body
     return Scaffold(
       // AppBar que contiene un título centrado
-      appBar: AppBar(title: const Text("Administrador"), centerTitle: true),
+      appBar: AppBar(
+        title: const Text("Administrador"),
+        centerTitle: true,
+        backgroundColor: Color.fromARGB(255, 0, 255, 128),
+      ),
       // Body que contiene un Center con un texto
       body: Center(
         child: Column(
           children: [
+            SizedBox(height: 20),
             //Boton que lleva a Formulario
             ElevatedButton(
               onPressed: () {
@@ -43,7 +48,7 @@ class _AdministratorScreen extends State<AdministratorScreen> {
               },
               style: ElevatedButton.styleFrom(
                 foregroundColor: Colors.white,
-                backgroundColor: Colors.blue,
+                backgroundColor: Color.fromARGB(255, 0, 255, 128),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
@@ -54,6 +59,8 @@ class _AdministratorScreen extends State<AdministratorScreen> {
               ),
               child: const Text("Crear Reporte"),
             ),
+            Padding(padding: EdgeInsets.all(8)),
+            Divider(color: Colors.grey, thickness: 1, height: 20),
             Padding(padding: EdgeInsets.all(8)),
             if (seleccionIndex != -1)
               ElevatedButton(
@@ -91,7 +98,7 @@ class _AdministratorScreen extends State<AdministratorScreen> {
                 },
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white,
-                  backgroundColor: Colors.blue,
+                  backgroundColor: Color.fromARGB(255, 0, 255, 128),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
@@ -102,6 +109,7 @@ class _AdministratorScreen extends State<AdministratorScreen> {
                 ),
                 child: const Text("Marcar como solucionado"),
               ),
+            Padding(padding: EdgeInsets.all(8)),
             ListaReportesPares(
               DataBase().reportesSolucionado,
               onSeleccion: (seleccionado) {
