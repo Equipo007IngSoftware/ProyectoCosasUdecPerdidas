@@ -18,6 +18,7 @@ class AdministratorScreen extends StatefulWidget {
 class _AdministratorScreen extends State<AdministratorScreen> {
   //variable que dice si hay algun par de reporte seleccionado
   int seleccionIndex = -1;
+  bool _isPair = true;
 
   // Metodo build que describe la parte de la interfaz de usuario representada por este widget
   @override
@@ -59,9 +60,39 @@ class _AdministratorScreen extends State<AdministratorScreen> {
               ),
               child: const Text("Crear Reporte"),
             ),
-            Padding(padding: EdgeInsets.all(8)),
-            Divider(color: Colors.grey, thickness: 1, height: 20),
-            Padding(padding: EdgeInsets.all(8)),
+            Divider(
+              //divisor para separar creacion de reporte y lista
+              height: 15,
+              color: Colors.grey,
+              thickness: 3,
+              indent: 16,
+              endIndent: 16,
+            ),
+            Padding(padding: EdgeInsets.all(2)),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              //crossAxisAlignment: CrossAxisAlignment.center,
+              spacing: 15,
+              children: <Widget>[
+                SizedBox(
+                  width: 90,
+                  child: Text(
+                    "Objetos entregados",
+                    textDirection: TextDirection.rtl,
+                  ),
+                ),
+                Switch(
+                  value: _isPair,
+                  onChanged: (newValue) {
+                    setState(() {
+                      _isPair = newValue;
+                      seleccionIndex = -1;
+                    });
+                  },
+                ),
+                SizedBox(width: 90, child: Text("Reportes emparejados")),
+              ],
+            ),
             if (seleccionIndex != -1)
               ElevatedButton(
                 onPressed: () {
@@ -69,15 +100,11 @@ class _AdministratorScreen extends State<AdministratorScreen> {
                   showDialog(
                     context: context,
                     builder: (context) => AlertDialog(
-                      title: const Text("Confirmar?"),
+                      title: const Text("¿Confirmar?"),
                       content: const Text(
-                        "Estos reportes se eliminaran permanentemente de la base de datos",
+                        "Estos reportes se marcarán como solucionados. Esta acción irreversible",
                       ),
                       actions: [
-                        TextButton(
-                          onPressed: () => Navigator.pop(context),
-                          child: const Text("Cancelar"),
-                        ),
                         ElevatedButton(
                           onPressed: () {
                             setState(() {
@@ -90,7 +117,17 @@ class _AdministratorScreen extends State<AdministratorScreen> {
                             });
                             Navigator.pop(context);
                           },
-                          child: const Text("Sí"),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.red,
+                          ),
+                          child: const Text(
+                            "Sí",
+                            style: TextStyle(color: Colors.black),
+                          ),
+                        ),
+                        ElevatedButton(
+                          onPressed: () => Navigator.pop(context),
+                          child: const Text("Cancelar"),
                         ),
                       ],
                     ),
@@ -109,15 +146,32 @@ class _AdministratorScreen extends State<AdministratorScreen> {
                 ),
                 child: const Text("Marcar como solucionado"),
               ),
-            Padding(padding: EdgeInsets.all(8)),
-            ListaReportesPares(
-              DataBase().reportesSolucionado,
-              onSeleccion: (seleccionado) {
-                setState(() {
-                  seleccionIndex = seleccionado;
-                });
-              },
-            ),
+            (_isPair)
+                ? ListaReportesPares(
+                    DataBase().reportesSolucionado,
+                    key: const ValueKey(
+                      "pares",
+                    ), //hacemos esto para que el widget se recreé si o si
+                    onSeleccion: (seleccionado) {
+                      setState(() {
+                        seleccionIndex = seleccionado;
+                      });
+                    },
+                    isPair: _isPair,
+                  )
+                : ListaReportesPares(
+                    DataBase().reportesEntregados,
+                    key: const ValueKey(
+                      "entregados",
+                    ), //hacemos esto para que el widget se recreé si o si
+                    onSeleccion: (seleccionado) {
+                      // setState(() {
+                      //seleccionIndex = seleccionado;
+                      //});
+                      return;
+                    },
+                    isPair: _isPair,
+                  ),
           ],
         ),
       ),
@@ -146,10 +200,12 @@ class _AdministratorScreen extends State<AdministratorScreen> {
 class ListaReportesPares extends StatefulWidget {
   final List<Solucion> soluciones;
   final ValueChanged<int> onSeleccion;
+  final bool isPair;
   const ListaReportesPares(
     this.soluciones, {
     super.key,
     required this.onSeleccion,
+    required this.isPair,
   });
 
   @override
@@ -173,7 +229,11 @@ class _ListaReportesParesState extends State<ListaReportesPares> {
   Widget build(BuildContext context) {
     return Expanded(
       child: (widget.soluciones.length == 0)
-          ? Center(child: Text('No hay ningún reporte emparejado'))
+          ? Center(
+              child: (widget.isPair)
+                  ? Text('No hay ningún reporte emparejado')
+                  : Text('No hay ningún objeto entregado'),
+            )
           : ListView.builder(
               itemCount: widget.soluciones.length,
               itemBuilder: (context, index) {
