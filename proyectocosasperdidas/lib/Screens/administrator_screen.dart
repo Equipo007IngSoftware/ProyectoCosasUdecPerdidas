@@ -144,6 +144,9 @@ class _AdministratorScreen extends State<AdministratorScreen> {
             (_isPair)
                 ? ListaReportesPares(
                     DataBase().reportesSolucionado,
+                    key: const ValueKey(
+                      "pares",
+                    ), //hacemos esto para que el widget se recreé si o si
                     onSeleccion: (seleccionado) {
                       setState(() {
                         seleccionIndex = seleccionado;
@@ -153,6 +156,9 @@ class _AdministratorScreen extends State<AdministratorScreen> {
                   )
                 : ListaReportesPares(
                     DataBase().reportesEntregados,
+                    key: const ValueKey(
+                      "entregados",
+                    ), //hacemos esto para que el widget se recreé si o si
                     onSeleccion: (seleccionado) {
                       // setState(() {
                       //seleccionIndex = seleccionado;
