@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:proyectocosasperdidas/Components/estado.dart';
-import 'package:proyectocosasperdidas/Components/reporte.dart';
-import 'package:proyectocosasperdidas/Components/tarjeta_de_reporte.dart';
+//import 'package:proyectocosasperdidas/Components/reporte.dart';
+//import 'package:proyectocosasperdidas/Components/tarjeta_de_reporte.dart';
 import 'package:proyectocosasperdidas/Screens/form.dart';
 import 'package:proyectocosasperdidas/database.dart';
+import 'package:proyectocosasperdidas/Components/tarjeta_de_par.dart';
 
 class AdministratorScreen extends StatefulWidget {
   // Constructor de la clase AdministratorScreen
@@ -249,14 +250,14 @@ class _ListaReportesParesState extends State<ListaReportesPares> {
                     children: [
                       // Tarjeta 1: Reporte Perdido
                       Expanded(
-                        child: TarjetaDeReporte.fromReporte(
-                          solucion.perdido,
-                          onTap: (Reporte value) => _handleTap(index),
+                        child: TarjetaDePar.fromSolucion(
+                          solucion,
+                          onTap: (Solucion value) => _handleTap(index),
                           isSelected:
                               isExpanded, // Sincroniza el estado (expandido o no)
                         ),
                       ),
-                      // Tarjeta 2: Reporte Encontrado
+                      /* // Tarjeta 2: Reporte Encontrado
                       Expanded(
                         child: TarjetaDeReporte.fromReporte(
                           solucion.encontrado,
@@ -264,7 +265,7 @@ class _ListaReportesParesState extends State<ListaReportesPares> {
                           isSelected:
                               isExpanded, // Sincroniza el estado (expandido o no)
                         ),
-                      ),
+                      ),*/
                     ],
                   ),
                 );
