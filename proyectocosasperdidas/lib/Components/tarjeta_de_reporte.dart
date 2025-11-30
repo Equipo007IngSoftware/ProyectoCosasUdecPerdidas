@@ -239,9 +239,11 @@ class _TarjetaDeReporteState extends State<TarjetaDeReporte> {
                     children: [
                       const Icon(Icons.category, size: 16, color: Colors.grey),
                       const SizedBox(width: 4),
-                      Text(
-                        'Tipo: ${widget.reporte.tipo.label}',
-                        style: const TextStyle(color: Colors.grey),
+                      Expanded(
+                        child: Text(
+                          'Tipo: ${widget.reporte.tipo.label}',
+                          style: const TextStyle(color: Colors.grey),
+                        ),
                       ),
                     ],
                   ),
