@@ -32,8 +32,8 @@ void main(){
     expect(testBool, true);
 
     await tester.pumpWidget(MaterialApp(home: AdministratorScreen()));
-    ///Se confirma que estén las 2 cards, y de que aparezca la información extra cuando se les hace click
-    expect(find.byType(Card), findsNWidgets(2));
+    ///Se confirma que esté la card del emparejamiento, y de que aparezca la información extra cuando se les hace click
+    expect(find.byType(Card), findsOne);
     expect(find.text("Estado: PERDIDO"), findsNothing);
     expect(find.text("+9003"), findsNothing);
     await tester.tap(find.byType(Card).first);
@@ -105,6 +105,6 @@ void main(){
     expect(find.byType(Card), findsNothing);
     await tester.tap(find.byType(Switch));
     await tester.pump(Durations.short2);
-    expect(find.byType(Card), findsNWidgets(2));
+    expect(find.byType(Card), findsOne);
   });
 }
