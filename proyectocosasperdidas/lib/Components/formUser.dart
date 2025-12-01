@@ -106,7 +106,7 @@ class FormUserState extends State<FormUser> {
               }
               if (!RegExp(
                 /*r'^[a-z|A-Z|0-9]+\@[a-z|A-Z|0-9]+\.[a-z]+$',*/
-                r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
+                r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&ñ'*+-/=?^_`{|}~]+@[a-zA-Z0-9ñ]+\.[a-zA-Zñ]+",
               ).hasMatch(value)) {
                 return 'No tiene formato de correo';
               } //chequea formato básico de correo
