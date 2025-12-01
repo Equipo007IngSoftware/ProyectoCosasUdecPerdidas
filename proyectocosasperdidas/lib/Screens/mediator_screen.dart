@@ -50,7 +50,66 @@ class _MediatorScreen extends State<MediatorScreen> {
             onPressed: (perdidoSelect != -1 && encontradoSelect != -1)
                 ? () {
                     setState(() {
-                      if (db.emparejar(
+                      if (db.getReportePerdido(perdidoSelect, null).tipo !=
+                          db
+                              .getReporteEncontrado(encontradoSelect, null)
+                              .tipo) {
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: const Text("¿Confirmar?"),
+                            content: const Text(
+                              "Estos reportes son de categorías disintas. ¿Desea continuar?",
+                            ),
+                            actions: [
+                              ElevatedButton(
+                                onPressed: () {
+                                  setState(() {
+                                    perdidoSelect = -1;
+                                    encontradoSelect = -1;
+                                    Navigator.pop(context);
+                                  });
+                                },
+                                child: const Text("Cancelar"),
+                              ),
+                              ElevatedButton(
+                                onPressed: () {
+                                  setState(() {
+                                    if (db.emparejar(
+                                      db.getReportePerdido(perdidoSelect, null),
+                                      db.getReporteEncontrado(
+                                        encontradoSelect,
+                                        null,
+                                      ),
+                                    )) {
+                                      perdidoSelect = -1;
+                                      encontradoSelect = -1;
+                                      Navigator.pop(context);
+                                      ScaffoldMessenger.of(
+                                        context,
+                                      ).showSnackBar(
+                                        const SnackBar(
+                                          content: Text(
+                                            'Emparejado',
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          backgroundColor: Colors.green,
+                                        ),
+                                      );
+                                    }
+                                    ;
+                                  });
+                                },
+
+                                child: const Text(
+                                  "Aceptar",
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      } else if (db.emparejar(
                         db.getReportePerdido(perdidoSelect, null),
                         db.getReporteEncontrado(encontradoSelect, null),
                       )) {
@@ -66,7 +125,6 @@ class _MediatorScreen extends State<MediatorScreen> {
                           ),
                         );
                       }
-                      ;
                     });
                   }
                 : null,
