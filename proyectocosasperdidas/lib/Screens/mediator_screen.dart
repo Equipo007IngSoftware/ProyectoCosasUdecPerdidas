@@ -50,10 +50,115 @@ class _MediatorScreen extends State<MediatorScreen> {
             onPressed: (perdidoSelect != -1 && encontradoSelect != -1)
                 ? () {
                     setState(() {
-                      if (db.emparejar(
-                        db.getReportePerdido(perdidoSelect, null),
-                        db.getReporteEncontrado(encontradoSelect, null),
-                      )) {
+                      Reporte perdido = db.getReportePerdido(
+                        perdidoSelect,
+                        null,
+                      );
+                      Reporte encontrado = db.getReporteEncontrado(
+                        encontradoSelect,
+                        null,
+                      );
+                      if (encontrado.fecha!.isBefore(perdido.fecha!)) {
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: const Text("¿Confirmar?"),
+                            content: const Text(
+                              "El objeto perdido se perdió después de que el objeto encontrado fue reportado. ¿Desea continuar?",
+                            ),
+                            actions: [
+                              ElevatedButton(
+                                onPressed: () {
+                                  setState(() {
+                                    perdidoSelect = -1;
+                                    encontradoSelect = -1;
+                                    Navigator.pop(context);
+                                  });
+                                },
+                                child: const Text("Cancelar"),
+                              ),
+                              ElevatedButton(
+                                onPressed: () {
+                                  setState(() {
+                                    if (db.emparejar(perdido, encontrado)) {
+                                      perdidoSelect = -1;
+                                      encontradoSelect = -1;
+                                      Navigator.pop(context);
+                                      ScaffoldMessenger.of(
+                                        context,
+                                      ).showSnackBar(
+                                        const SnackBar(
+                                          content: Text(
+                                            'Emparejado',
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          backgroundColor: Colors.green,
+                                        ),
+                                      );
+                                    }
+                                    ;
+                                  });
+                                },
+
+                                child: const Text(
+                                  "Aceptar",
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      } else if (perdido.tipo != encontrado.tipo) {
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: const Text("¿Confirmar?"),
+                            content: const Text(
+                              "Estos reportes son de categorías disintas. ¿Desea continuar?",
+                            ),
+                            actions: [
+                              ElevatedButton(
+                                onPressed: () {
+                                  setState(() {
+                                    perdidoSelect = -1;
+                                    encontradoSelect = -1;
+                                    Navigator.pop(context);
+                                  });
+                                },
+                                child: const Text("Cancelar"),
+                              ),
+                              ElevatedButton(
+                                onPressed: () {
+                                  setState(() {
+                                    if (db.emparejar(perdido, encontrado)) {
+                                      perdidoSelect = -1;
+                                      encontradoSelect = -1;
+                                      Navigator.pop(context);
+                                      ScaffoldMessenger.of(
+                                        context,
+                                      ).showSnackBar(
+                                        const SnackBar(
+                                          content: Text(
+                                            'Emparejado',
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          backgroundColor: Colors.green,
+                                        ),
+                                      );
+                                    }
+                                    ;
+                                  });
+                                },
+
+                                child: const Text(
+                                  "Aceptar",
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      } else if (db.emparejar(perdido, encontrado)) {
                         perdidoSelect = -1;
                         encontradoSelect = -1;
                         ScaffoldMessenger.of(context).showSnackBar(
@@ -66,7 +171,6 @@ class _MediatorScreen extends State<MediatorScreen> {
                           ),
                         );
                       }
-                      ;
                     });
                   }
                 : null,
