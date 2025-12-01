@@ -44,7 +44,7 @@ class HomeScreen extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                         foregroundColor: Colors.white,
                         //backgroundColor: Colors.blue,
-                        backgroundColor: Color.fromARGB(255, 0, 255, 128),
+                        backgroundColor: Colors.green,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -106,12 +106,7 @@ class HomeScreen extends StatelessWidget {
                       // Estilo personalizado para el botón
                       style: ElevatedButton.styleFrom(
                         foregroundColor: Colors.white,
-                        backgroundColor: const Color.fromARGB(
-                          255,
-                          209,
-                          250,
-                          46,
-                        ),
+                        backgroundColor: Colors.yellow,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),

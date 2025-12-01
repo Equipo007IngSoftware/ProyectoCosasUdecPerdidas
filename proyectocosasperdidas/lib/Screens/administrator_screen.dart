@@ -30,7 +30,7 @@ class _AdministratorScreen extends State<AdministratorScreen> {
       appBar: AppBar(
         title: const Text("Administrador"),
         centerTitle: true,
-        backgroundColor: Color.fromARGB(255, 0, 255, 128),
+        backgroundColor: Colors.green,
       ),
       // Body que contiene un Center con un texto
       body: Center(
@@ -50,7 +50,7 @@ class _AdministratorScreen extends State<AdministratorScreen> {
               },
               style: ElevatedButton.styleFrom(
                 foregroundColor: Colors.white,
-                backgroundColor: Color.fromARGB(255, 0, 255, 128),
+                backgroundColor: Colors.green,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
@@ -103,7 +103,7 @@ class _AdministratorScreen extends State<AdministratorScreen> {
                     builder: (context) => AlertDialog(
                       title: const Text("¿Confirmar?"),
                       content: const Text(
-                        "Estos reportes se marcarán como solucionados. Esta acción irreversible",
+                        "Estos reportes se marcarán como solucionados. Esta acción es irreversible",
                       ),
                       actions: [
                         ElevatedButton(
@@ -136,7 +136,7 @@ class _AdministratorScreen extends State<AdministratorScreen> {
                 },
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white,
-                  backgroundColor: Color.fromARGB(255, 0, 255, 128),
+                  backgroundColor: Colors.green,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),

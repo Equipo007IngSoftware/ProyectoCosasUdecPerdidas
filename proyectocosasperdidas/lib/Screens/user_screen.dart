@@ -21,7 +21,7 @@ class _UserScreen extends State<UserScreen> {
       appBar: AppBar(
         title: const Text("Proyecto cosas perdidas UdeC"),
         centerTitle: true,
-        backgroundColor: const Color.fromARGB(255, 209, 250, 46),
+        backgroundColor: Colors.yellow,
       ),
       // Body que contiene un Center con un texto
       body: Center(
@@ -42,7 +42,7 @@ class _UserScreen extends State<UserScreen> {
               },
               style: ElevatedButton.styleFrom(
                 foregroundColor: Colors.white,
-                backgroundColor: const Color.fromARGB(255, 209, 250, 46),
+                backgroundColor: Colors.yellow,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
