@@ -21,7 +21,11 @@ class _MediatorScreen extends State<MediatorScreen> {
   Widget build(BuildContext context) {
     DataBase db = DataBase();
     return Scaffold(
-      appBar: AppBar(title: const Text("Mediador"), centerTitle: true),
+      appBar: AppBar(
+        title: const Text("Mediador"),
+        centerTitle: true,
+        backgroundColor: Colors.blue,
+      ),
       body: Column(
         mainAxisSize: MainAxisSize.min,
         spacing: 10,

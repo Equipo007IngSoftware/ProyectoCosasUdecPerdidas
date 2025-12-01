@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:proyectocosasperdidas/Components/estado.dart';
-import 'package:proyectocosasperdidas/Components/reporte.dart';
-import 'package:proyectocosasperdidas/Components/tarjeta_de_reporte.dart';
+//import 'package:proyectocosasperdidas/Components/reporte.dart';
+//import 'package:proyectocosasperdidas/Components/tarjeta_de_reporte.dart';
 import 'package:proyectocosasperdidas/Screens/form.dart';
 import 'package:proyectocosasperdidas/database.dart';
+import 'package:proyectocosasperdidas/Components/tarjeta_de_par.dart';
 
 class AdministratorScreen extends StatefulWidget {
   // Constructor de la clase AdministratorScreen
@@ -26,11 +27,16 @@ class _AdministratorScreen extends State<AdministratorScreen> {
     // Scaffold proporciona una estructura básica para la pantalla, en este caso con una AppBar y un Body
     return Scaffold(
       // AppBar que contiene un título centrado
-      appBar: AppBar(title: const Text("Administrador"), centerTitle: true),
+      appBar: AppBar(
+        title: const Text("Administrador"),
+        centerTitle: true,
+        backgroundColor: Colors.green,
+      ),
       // Body que contiene un Center con un texto
       body: Center(
         child: Column(
           children: [
+            SizedBox(height: 20),
             //Boton que lleva a Formulario
             ElevatedButton(
               onPressed: () {
@@ -44,7 +50,7 @@ class _AdministratorScreen extends State<AdministratorScreen> {
               },
               style: ElevatedButton.styleFrom(
                 foregroundColor: Colors.white,
-                backgroundColor: Colors.blue,
+                backgroundColor: Colors.green,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
@@ -97,7 +103,7 @@ class _AdministratorScreen extends State<AdministratorScreen> {
                     builder: (context) => AlertDialog(
                       title: const Text("¿Confirmar?"),
                       content: const Text(
-                        "Estos reportes se marcarán como solucionados. Esta acción irreversible",
+                        "Estos reportes se marcarán como solucionados. Esta acción es irreversible",
                       ),
                       actions: [
                         ElevatedButton(
@@ -130,7 +136,7 @@ class _AdministratorScreen extends State<AdministratorScreen> {
                 },
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white,
-                  backgroundColor: Colors.blue,
+                  backgroundColor: Colors.green,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
@@ -244,14 +250,14 @@ class _ListaReportesParesState extends State<ListaReportesPares> {
                     children: [
                       // Tarjeta 1: Reporte Perdido
                       Expanded(
-                        child: TarjetaDeReporte.fromReporte(
-                          solucion.perdido,
-                          onTap: (Reporte value) => _handleTap(index),
+                        child: TarjetaDePar.fromSolucion(
+                          solucion,
+                          onTap: (Solucion value) => _handleTap(index),
                           isSelected:
                               isExpanded, // Sincroniza el estado (expandido o no)
                         ),
                       ),
-                      // Tarjeta 2: Reporte Encontrado
+                      /* // Tarjeta 2: Reporte Encontrado
                       Expanded(
                         child: TarjetaDeReporte.fromReporte(
                           solucion.encontrado,
@@ -259,7 +265,7 @@ class _ListaReportesParesState extends State<ListaReportesPares> {
                           isSelected:
                               isExpanded, // Sincroniza el estado (expandido o no)
                         ),
-                      ),
+                      ),*/
                     ],
                   ),
                 );
