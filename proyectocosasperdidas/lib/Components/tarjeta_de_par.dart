@@ -207,47 +207,88 @@ class _TarjetaDeParState extends State<TarjetaDePar> {
               ),
               const SizedBox(height: 8),
 
-              // Fila de Lugar y Fecha
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  // Ubicación
-                  Expanded(
-                    child: Row(
+              // columna con lugar y fecha cuando está expandido por si ubicación es muy larga
+              _isExpanded
+                  ? Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Icon(
-                          Icons.location_on,
-                          size: 16,
-                          color: Colors.grey,
+                        // Ubicación completa, multilinea
+                        Row(
+                          children: [
+                            const Icon(
+                              Icons.location_on,
+                              size: 16,
+                              color: Colors.grey,
+                            ),
+                            const SizedBox(width: 4),
+                            Expanded(
+                              child: Text(
+                                reporte.ubicacion.descripcion,
+                                style: const TextStyle(color: Colors.grey),
+                              ),
+                            ),
+                          ],
                         ),
-                        const SizedBox(width: 4),
-                        Flexible(
-                          child: Text(
-                            reporte.ubicacion.descripcion,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(color: Colors.grey),
+                        const SizedBox(height: 4),
+
+                        Row(
+                          children: [
+                            const Icon(
+                              Icons.calendar_today,
+                              size: 16,
+                              color: Colors.grey,
+                            ),
+                            const SizedBox(width: 4),
+                            Text(
+                              reporte.fecha != null
+                                  ? '${reporte.fecha!.day}/${reporte.fecha!.month}/${reporte.fecha!.year}'
+                                  : 'Sin fecha',
+                              style: const TextStyle(color: Colors.grey),
+                            ),
+                          ],
+                        ),
+                      ],
+                    )
+                  : Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        // Ubicación
+                        Expanded(
+                          child: Row(
+                            children: [
+                              const Icon(
+                                Icons.location_on,
+                                size: 16,
+                                color: Colors.grey,
+                              ),
+                              const SizedBox(width: 4),
+                              Flexible(
+                                child: Text(
+                                  reporte.ubicacion.descripcion,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(color: Colors.grey),
+                                ),
+                              ),
+                            ],
                           ),
+                        ),
+                        // Fecha
+                        Row(
+                          children: [
+                            const Icon(
+                              Icons.calendar_today,
+                              size: 16,
+                              color: Colors.grey,
+                            ),
+                            const SizedBox(width: 4),
+                            Text(
+                              '${reporte.fecha!.day}/${reporte.fecha!.month}/${reporte.fecha!.year}',
+                              style: const TextStyle(color: Colors.grey),
+                            ),
+                          ],
                         ),
                       ],
                     ),
-                  ),
-                  // Fecha
-                  Row(
-                    children: [
-                      const Icon(
-                        Icons.calendar_today,
-                        size: 16,
-                        color: Colors.grey,
-                      ),
-                      const SizedBox(width: 4),
-                      Text(
-                        '${reporte.fecha!.day}/${reporte.fecha!.month}/${reporte.fecha!.year}',
-                        style: const TextStyle(color: Colors.grey),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
               const SizedBox(height: 8),
 
               // Tipo/Categoria
