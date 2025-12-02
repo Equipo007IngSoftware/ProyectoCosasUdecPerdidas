@@ -80,11 +80,11 @@ void main(){
     await tester.pumpWidget(MaterialApp(home: AdministratorScreen()));
     expect(find.text("Marcar como solucionado"), findsNothing);
     expect(find.byType(ElevatedButton), findsOne);
-    await tester.tap(find.byType(Card).first);
+    await tester.tap(find.byType(Card));
     await tester.pump(Durations.short2);
     expect(find.text("Marcar como solucionado"), findsOne);
     expect(find.byType(ElevatedButton), findsNWidgets(2));
-    await tester.tap(find.byType(Card).first);
+    await tester.tap(find.byType(Card));
     await tester.pump(Durations.short2);
     expect(find.text("Marcar como solucionado"), findsNothing);
     expect(find.byType(ElevatedButton), findsOne);

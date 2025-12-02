@@ -36,7 +36,7 @@ class _AdministratorScreen extends State<AdministratorScreen> {
       body: Center(
         child: Column(
           children: [
-            SizedBox(height: 20),
+            SizedBox(height: 10),
             //Boton que lleva a Formulario
             ElevatedButton(
               onPressed: () {
