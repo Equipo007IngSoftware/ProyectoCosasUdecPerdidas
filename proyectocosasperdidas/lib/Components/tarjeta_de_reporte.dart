@@ -197,8 +197,8 @@ class _TarjetaDeReporteState extends State<TarjetaDeReporte> {
                   const SizedBox(height: 8),
 
                   // Fila de Lugar y Fecha
-                  Wrap(
-                    //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       // Ubicación
                       Expanded(

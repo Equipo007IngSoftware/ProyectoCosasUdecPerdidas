@@ -1,5 +1,5 @@
 import 'package:file_picker/file_picker.dart';
-import 'package:proyectocosasperdidas/Components/tarjeta_de_reporte.dart';
+//import 'package:proyectocosasperdidas/Components/tarjeta_de_reporte.dart';
 import 'estado.dart';
 import 'identificacion.dart';
 import 'ubicacion.dart';
