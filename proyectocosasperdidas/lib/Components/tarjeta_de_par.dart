@@ -212,19 +212,24 @@ class _TarjetaDeParState extends State<TarjetaDePar> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   // Ubicación
-                  Row(
-                    children: [
-                      const Icon(
-                        Icons.location_on,
-                        size: 16,
-                        color: Colors.grey,
-                      ),
-                      const SizedBox(width: 4),
-                      Text(
-                        reporte.ubicacion.descripcion,
-                        style: const TextStyle(color: Colors.grey),
-                      ),
-                    ],
+                  Expanded(
+                    child: Row(
+                      children: [
+                        const Icon(
+                          Icons.location_on,
+                          size: 16,
+                          color: Colors.grey,
+                        ),
+                        const SizedBox(width: 4),
+                        Flexible(
+                          child: Text(
+                            reporte.ubicacion.descripcion,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(color: Colors.grey),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                   // Fecha
                   Row(
@@ -250,11 +255,9 @@ class _TarjetaDeParState extends State<TarjetaDePar> {
                 children: [
                   const Icon(Icons.category, size: 16, color: Colors.grey),
                   const SizedBox(width: 4),
-                  Expanded(
-                    child: Text(
-                      'Tipo: ${reporte.tipo.label}',
-                      style: const TextStyle(color: Colors.grey),
-                    ),
+                  Text(
+                    'Tipo: ${reporte.tipo.label}',
+                    style: const TextStyle(color: Colors.grey),
                   ),
                 ],
               ),

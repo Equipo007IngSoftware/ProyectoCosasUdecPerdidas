@@ -197,23 +197,28 @@ class _TarjetaDeReporteState extends State<TarjetaDeReporte> {
                   const SizedBox(height: 8),
 
                   // Fila de Lugar y Fecha
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  Wrap(
+                    //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       // Ubicación
-                      Row(
-                        children: [
-                          const Icon(
-                            Icons.location_on,
-                            size: 16,
-                            color: Colors.grey,
-                          ),
-                          const SizedBox(width: 4),
-                          Text(
-                            widget.reporte.ubicacion.descripcion,
-                            style: const TextStyle(color: Colors.grey),
-                          ),
-                        ],
+                      Expanded(
+                        child: Row(
+                          children: [
+                            const Icon(
+                              Icons.location_on,
+                              size: 16,
+                              color: Colors.grey,
+                            ),
+                            const SizedBox(width: 4),
+                            Flexible(
+                              child: Text(
+                                widget.reporte.ubicacion.descripcion,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(color: Colors.grey),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                       // Fecha
                       Row(
