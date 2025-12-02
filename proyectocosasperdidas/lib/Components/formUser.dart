@@ -69,7 +69,7 @@ class FormUserState extends State<FormUser> {
           ),
           TextFormField(
             decoration: const InputDecoration(
-              hintText: '+56912345678',
+              hintText: '+56912345678 o 912345678',
               labelText: 'Telefóno de contacto *',
               contentPadding: EdgeInsets.fromLTRB(16, 0, 16, 0),
             ),
@@ -82,9 +82,21 @@ class FormUserState extends State<FormUser> {
               if (value == null || value.isEmpty) {
                 return 'Este campo es obligatorio.';
               }
-              if (!RegExp(r'^\+[0-9]+$').hasMatch(value)) {
-                return ("Asegúrate de que solo hay números después del +");
-              } //chequea que sea un + seguido solamente de números
+              if (value[0] == '+') {
+                if (!RegExp(r'^\+[0-9]+$').hasMatch(value)) {
+                  return ("Asegúrate de que solo hay números después del +");
+                } //chequea que sea un + seguido solamente de números
+                else if (value.length < 12 || value.length > 13) {
+                  return ("Chequea el largo");
+                }
+              } else {
+                if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
+                  return ("Asegúrate de que solo hay números");
+                } //chequea que sea un + seguido solamente de números
+                else if (value.length < 8 || value.length > 9) {
+                  return ("Chequea el largo");
+                }
+              }
 
               return null;
             },
