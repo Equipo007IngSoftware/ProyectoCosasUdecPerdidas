@@ -92,7 +92,7 @@ class FormUserState extends State<FormUser> {
               } else {
                 if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
                   return ("Asegúrate de que solo hay números");
-                } //chequea que sea un + seguido solamente de números
+                } //chequea que solo hay números
                 else if (value.length < 8 || value.length > 9) {
                   return ("Chequea el largo");
                 }

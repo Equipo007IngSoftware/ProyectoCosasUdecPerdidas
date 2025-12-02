@@ -16,7 +16,7 @@ class TarjetaDePar extends StatefulWidget {
     this.isSelected = false,
   });
 
-  // Constructor factory para crear la tarjeta desde un objeto Reporte
+  // Constructor factory para crear la tarjeta desde un objeto Solucion
   //(es por una cuestion de simplicidad al instanciar en ListaReportes).
   factory TarjetaDePar.fromSolucion(
     Solucion s, {
@@ -53,7 +53,7 @@ class _TarjetaDeParState extends State<TarjetaDePar> {
     }
   }
 
-  // Widget que construye los detalles adicionales del Admin o User (persona que extravió algo).
+  // Widget que construye los detalles adicionales de cada reporte
   Widget _buildDetallesAdicionales(Reporte reporte) {
     // Determina el tipo de estado del reporte (perdido encontrado)
     final isPerdido = reporte.estado.toString().contains('perdido');
@@ -230,7 +230,7 @@ class _TarjetaDeParState extends State<TarjetaDePar> {
                           ],
                         ),
                         const SizedBox(height: 4),
-
+                        //fecha
                         Row(
                           children: [
                             const Icon(
@@ -249,6 +249,7 @@ class _TarjetaDeParState extends State<TarjetaDePar> {
                         ),
                       ],
                     )
+                  //cuando no está expandido fecha y ubicación ocupan la misma fila
                   : Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [

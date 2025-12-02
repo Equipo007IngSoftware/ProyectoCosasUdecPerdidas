@@ -196,7 +196,7 @@ class _TarjetaDeReporteState extends State<TarjetaDeReporte> {
                   ),
                   const SizedBox(height: 8),
 
-                  // Fila de Lugar y Fecha
+                  // columna cuando está expandido por si la ubicación es muy larga
                   _isExpanded
                       ? Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -219,8 +219,7 @@ class _TarjetaDeReporteState extends State<TarjetaDeReporte> {
                               ],
                             ),
                             const SizedBox(height: 4),
-
-                            // Fecha abajo
+                            //fecha
                             Row(
                               children: [
                                 const Icon(
@@ -239,6 +238,7 @@ class _TarjetaDeReporteState extends State<TarjetaDeReporte> {
                             ),
                           ],
                         )
+                      //fila de lugar y fecha
                       : Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [

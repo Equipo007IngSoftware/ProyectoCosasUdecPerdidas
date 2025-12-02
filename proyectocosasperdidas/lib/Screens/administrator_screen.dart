@@ -70,6 +70,7 @@ class _AdministratorScreen extends State<AdministratorScreen> {
               endIndent: 16,
             ),
             Padding(padding: EdgeInsets.all(2)),
+            //boton tipo swtich para cambiar entre reporte de objeto entregado o solo emparejado
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               //crossAxisAlignment: CrossAxisAlignment.center,
@@ -147,7 +148,7 @@ class _AdministratorScreen extends State<AdministratorScreen> {
                 ),
                 child: const Text("Marcar como solucionado"),
               ),
-            (_isPair)
+            (_isPair) //revisa si se debe mostrar emparejado o entregado
                 ? ListaReportesPares(
                     DataBase().reportesSolucionado,
                     key: ValueKey(
@@ -179,6 +180,7 @@ class _AdministratorScreen extends State<AdministratorScreen> {
     );
   }
 }
+
 /*class ListaReportesPares extends StatelessWidget {
   //final ValueChanged<Reporte> notify;
   final List<Solucion> soluciones;
@@ -197,7 +199,7 @@ class _AdministratorScreen extends State<AdministratorScreen> {
     );
   }
 }*/
-
+//lista que despliega los pares de reporte encontrado y perdido
 class ListaReportesPares extends StatefulWidget {
   final List<Solucion> soluciones;
   final ValueChanged<int> onSeleccion;
