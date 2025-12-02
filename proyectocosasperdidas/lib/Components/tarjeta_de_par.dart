@@ -297,9 +297,11 @@ class _TarjetaDeParState extends State<TarjetaDePar> {
                 children: [
                   const Icon(Icons.category, size: 16, color: Colors.grey),
                   const SizedBox(width: 4),
-                  Text(
-                    'Tipo: ${reporte.tipo.label}',
-                    style: const TextStyle(color: Colors.grey),
+                  Expanded(
+                    child: Text(
+                      'Tipo: ${reporte.tipo.label}',
+                      style: const TextStyle(color: Colors.grey),
+                    ),
                   ),
                 ],
               ),
